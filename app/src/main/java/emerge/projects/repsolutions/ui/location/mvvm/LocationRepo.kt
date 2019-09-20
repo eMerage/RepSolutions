@@ -216,29 +216,6 @@ class LocationRepo(application: Application) {
         loding.set(false)
 
 
-/*  apiInterface.getDistricts()
-            .subscribeOn(Schedulers.io())
-            .doOnError { it }
-            .doOnTerminate { }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<District> {
-                override fun onSubscribe(d: Disposable) {
-                }
-                override fun onNext(log: District) {
-                    data = log
-                }
-                override fun onError(e: Throwable) {
-                    data.districtNetworkError = networkErrorHandler(e)
-                    result.postValue(data)
-                    loding.set(false)
-                }
-                override fun onComplete() {
-                    result.postValue(data)
-                    loding.set(false)
-                }
-            })
-
-*/
 
 
 
@@ -275,30 +252,6 @@ class LocationRepo(application: Application) {
 
         result.postValue(test)
         loding.set(false)
-
-
-        /*        apiInterface.getTown(districtID)
-                    .subscribeOn(Schedulers.io())
-                    .doOnError { it }
-                    .doOnTerminate { }
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(object : Observer<Town> {
-                        override fun onSubscribe(d: Disposable) {
-                        }
-                        override fun onNext(log: Town) {
-                            data = log
-                        }
-                        override fun onError(e: Throwable) {
-                            data.townNetworkError = networkErrorHandler(e)
-                            result.postValue(data)
-                            loding.set(false)
-                        }
-                        override fun onComplete() {
-                            result.postValue(data)
-                            loding.set(false)
-                        }
-                    })*/
-
 
 
 
