@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Rep Solutions</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="company_name">Indoscan</string>
+    <string name="poweredby_name">Powered By Emerge Solution</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    //nav
+    <string name="nav_header_title"></string>
+    <string name="nav_header_subtitle"></string>
+    <string name="nav_header_desc"></string>
+
+    //home
+    <string name="title_activity_home">Home</string>
+
+
+    <string name="title_activity_docvists">Doctor\'s Visits</string>
+    <string name="title_activity_newdocvists">New Doctor Visit</string>
+    <string name="title_activity_location">Locations</string>
+    <string name="title_activity_newlocation">New Locations</string>
+
+
+</resources>

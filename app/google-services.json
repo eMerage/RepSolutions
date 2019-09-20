@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "616860032518",
+    "firebase_url": "https://repsolution-6c019.firebaseio.com",
+    "project_id": "repsolution-6c019",
+    "storage_bucket": "repsolution-6c019.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616860032518:android:3059a91be62a9e23676d87",
+        "android_client_info": {
+          "package_name": "emerge.projects.repsolutions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "616860032518-7jb8agmseg8r68bqcbpts6e5a1t7hlmv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "emerge.projects.repsolutions",
+            "certificate_hash": "b6622b7bae5fdec7170562a1402a57d3b63d0210"
+          }
+        },
+        {
+          "client_id": "616860032518-arhicqqi4i03tegrtrsrbhk9oc7pj1aa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDi8oadnF1DLKKq9NWL78smvmTWL7FYi1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "616860032518-arhicqqi4i03tegrtrsrbhk9oc7pj1aa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

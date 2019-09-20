@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+
+
+    <color name="colorAccent">#00574B</color>
+
+
+
+    <color name="babypowder">#FEFEFA</color>
+
+    <color name="theamcolor">#00acb6</color>
+
+
+
+
+    <color name="textcolor0">#252527</color>
+    <color name="textcolor1">#2F2F31</color>
+    <color name="textcolor2">#3d3d3f</color>
+    <color name="textcolor3">#565659</color>
+    <color name="colorblack">#000000</color>
+
+</resources>
