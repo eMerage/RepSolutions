@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -35,13 +36,14 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.navigation.NavigationView
 import emerge.projects.repsolutions.R
-import emerge.projects.repsolutions.data.modeldata.District
-import emerge.projects.repsolutions.data.modeldata.NetworkError
+import emerge.projects.repsolutions.data.modeldata.*
 import emerge.projects.repsolutions.databinding.ActivityLocationNewBinding
-import emerge.projects.repsolutions.services.network.NetworkErrorHandler
 
 import emerge.projects.repsolutions.ui.location.locationlist.activity.LoctaionListActivity
+import emerge.projects.repsolutions.ui.location.newlocation.adaptar.AutocompleteDistrictAdaptor
 import emerge.projects.repsolutions.ui.location.mvvm.LocationModelView
+import emerge.projects.repsolutions.ui.location.newlocation.adaptar.AutocompleteTownAdaptor
+import emerge.projects.repsolutions.ui.location.newlocation.adaptar.SpinnerLocationTypeAdaptor
 import emerge.projects.repsolutions.ui.visitsdoctors.doctorsvisitslist.activity.DoctorsVisitsActivity
 import emerge.projects.repsolutions.ui.visitsdoctors.newdoctorvisit.activity.DoctorsNewVisitsActivity
 import kotlinx.android.synthetic.main.activity_location_new.*
@@ -145,25 +147,82 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
         keyboardListener()
 
         getDistricts()
-
+        getTowns()
+        getAreas()
+        getLocationTypes()
     }
 
 
-    fun getDistricts(){
-        viewModelNewLocation!!.getDistrictList().observe(this, Observer<District> {
+    fun getDistricts() {
+        viewModelNewLocation.getDistrictList().observe(this, Observer<District> {
             it?.let { result ->
-                if(result.districtStatus){
-                    viewModelNewLocation.setDistrictList(result)
-                }else{
-                    errorAlertDialog(result.districtNetworkError)
+                if (result.districtStatus) {
+                    val adapter = AutocompleteDistrictAdaptor(
+                        this,
+                        R.layout.textview_autocomplete,
+                        result.districtList
+                    )
+                    autoCompleteTextView_location_district.setAdapter(adapter)
+                } else {
+                    errorAlertDialogRetry(result.districtNetworkError, 1)
+                }
+            }
+        })
+    }
+
+    fun getTowns() {
+        viewModelNewLocation.getTownList().observe(this, Observer<Town> {
+            it?.let { result ->
+                if (result.townStatus) {
+                    val adapter = AutocompleteTownAdaptor(
+                        this,
+                        R.layout.textview_autocomplete,
+                        result.townList
+                    )
+                    autoCompleteTextView_location_town.setAdapter(adapter)
+                } else {
+                    errorAlertDialogRetry(result.townNetworkError, 2)
+                }
+            }
+        })
+    }
+
+
+    fun getAreas() {
+        viewModelNewLocation.getAreaList().observe(this, Observer<Area> {
+            it?.let { result ->
+                if (result.areaStatus) {
+                    val adapter = ArrayAdapter(
+                        this,
+                        R.layout.textview_autocomplete,
+                        result.areaList
+                    )
+                    autoCompleteTextView_location_area.setAdapter(adapter)
+                } else {
+                    errorAlertDialogRetry(result.areaNetworkError, 3)
+                }
+            }
+        })
+    }
+
+
+    fun getLocationTypes(){
+        viewModelNewLocation.getLocationTypeList().observe(this, Observer<LocationsTyps> {
+            it?.let { result ->
+                if (result.locationsTypeStatus) {
+                    val adapter = SpinnerLocationTypeAdaptor(
+                        this,
+                        R.layout.textview_spinner,
+                        result.locationsTypeList
+                    )
+                    spinner_location_type.adapter = adapter
+                } else {
+                    errorAlertDialogRetry(result.locationsTypeNetworkError, 4)
                 }
             }
         })
 
     }
-
-
-
 
     override fun isDestroyed(): Boolean {
         mapView_addnewlocation.onDestroy()
@@ -188,11 +247,7 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
 
-    fun locationSaveOnClick(view : View){
-
-
-
-
+    fun locationSaveOnClick(view: View) {
 
 
     }
@@ -308,6 +363,11 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 return true
             }
 
+            R.id.action_location_data_refresh -> {
+                getDistricts()
+                return true
+            }
+
         }
         return super.onOptionsItemSelected(item)
 
@@ -382,11 +442,33 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
             "OK",
             DialogInterface.OnClickListener { _, _ -> return@OnClickListener })
         alertDialogBuilder.show()
-
     }
 
 
-    fun keyboardListener(){
+    fun errorAlertDialogRetry(networkError: NetworkError, code: Int) {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle(networkError.errorTitle)
+        alertDialogBuilder.setMessage(networkError.errorMessage)
+        alertDialogBuilder.setPositiveButton(
+            "Re-Try"
+        ) { _, _ ->
+            when (code) {
+                1 -> getDistricts()
+                2 -> getTowns()
+                3 -> getAreas()
+                4 -> getLocationTypes()
+            }
+
+
+        }
+        alertDialogBuilder.setNegativeButton(
+            "NO",
+            DialogInterface.OnClickListener { _, _ -> return@OnClickListener })
+        alertDialogBuilder.show()
+    }
+
+
+    fun keyboardListener() {
         drawer_layout_newlocationlist.viewTreeObserver.addOnGlobalLayoutListener {
             val rec = Rect()
             drawer_layout_newlocationlist.getWindowVisibleDisplayFrame(rec)

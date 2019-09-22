@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName
 class NetworkError(
 
     var code: Int = 0,
-
     @SerializedName("code")
     var errorCode: String? = null,
 
@@ -13,5 +12,9 @@ class NetworkError(
     var errorMessage: String? = null,
 
     @SerializedName("type")
-    var errorTitle: String? = null )  {
+    var errorTitle: String? = null ,
+
+    @SerializedName("masterCode")
+    var errorMasterCode: String? = null
+)  {
 }

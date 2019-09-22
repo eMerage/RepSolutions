@@ -9,12 +9,12 @@ import kotlinx.android.synthetic.main.activity_location_new.*
 
 object LocationBindingAdaptar {
 
-    @BindingAdapter("districtList")
+    /*@BindingAdapter("districtList")
     @JvmStatic
     fun bindDistrict(view: AutoCompleteTextView, amount: ArrayAdapter<String>) {
         view.setAdapter(amount)
     }
-
+*/
 
 
 

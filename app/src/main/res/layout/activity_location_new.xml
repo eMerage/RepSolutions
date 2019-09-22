@@ -147,22 +147,48 @@
                             android:textSize="15sp" />-->
 
 
-                        <EditText
-                            android:id="@+id/edittext_location_area"
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView_location_area"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="40dp"
-                            android:ems="10"
-                            android:hint="Location Area *"
                             android:fontFamily="@font/roboto_light"
-                            android:text="@={newlocations.editTextLocationArea}"
-                            android:inputType="textPersonName"
-                            android:textColor="@color/colorblack"
                             android:textColorHint="@color/textcolor2"
+                            android:completionThreshold="1"
+                            android:hint="Location District *"
+                            android:onItemClickListener ="@{newlocations.onAreaItemSelected}"
                             android:textSize="16sp" />
 
+
+
+                        <TextView
+                            android:id="@+id/textView_hint_location_district"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_light"
+                            android:text="District of the location"
+                            android:textColor="@color/colorblack"
+                            android:textSize="16sp" />
+
+
+                        <AutoCompleteTextView
+                            android:id="@+id/autoCompleteTextView_location_district"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="40dp"
+                            android:fontFamily="@font/roboto_light"
+                            android:textColorHint="@color/textcolor2"
+                            android:completionThreshold="1"
+                            android:hint="Location District *"
+                            android:onItemClickListener ="@{newlocations.onDistrictItemSelected}"
+                            android:textSize="16sp" />
 
 
                         <TextView
@@ -187,39 +213,13 @@
                             android:fontFamily="@font/roboto_light"
                             android:textColorHint="@color/textcolor2"
                             android:completionThreshold="1"
+                            android:onItemClickListener ="@{newlocations.onTownItemSelected}"
                             android:hint="Location Town *"
                             android:textSize="16sp" />
 
 
 
-                        <TextView
-                            android:id="@+id/textView_hint_location_district"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/roboto_light"
-                            android:text="District of the location"
-                            android:textColor="@color/colorblack"
-                            android:textSize="16sp" />
 
-
-
-
-
-                        <AutoCompleteTextView
-                            android:id="@+id/autoCompleteTextView_location_district"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="40dp"
-                            android:fontFamily="@font/roboto_light"
-                            android:textColorHint="@color/textcolor2"
-                            app:districtList="@{newlocations.districtList}"
-                            android:completionThreshold="1"
-                            android:hint="Location District *"
-                            android:textSize="16sp" />
 
 
 
@@ -260,7 +260,7 @@
                         <Spinner
                             android:layout_width="match_parent"
                             android:layout_centerInParent="true"
-                            android:layout_height="40dp"
+                            android:layout_height="50dp"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="40dp"

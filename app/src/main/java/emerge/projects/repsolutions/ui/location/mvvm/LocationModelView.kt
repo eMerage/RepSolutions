@@ -9,8 +9,9 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import emerge.projects.repsolutions.R
-import emerge.projects.repsolutions.data.modeldata.District
-import emerge.projects.repsolutions.data.modeldata.Locations
+import android.os.Handler
+import android.widget.Toast
+import emerge.projects.repsolutions.data.modeldata.*
 
 
 class LocationModelView(application: Application) : AndroidViewModel(application) {
@@ -25,17 +26,13 @@ class LocationModelView(application: Application) : AndroidViewModel(application
 
     var editTextLocationName = MutableLiveData<String>()
     var editTextLocationAddress = MutableLiveData<String>()
-    var editTextLocationArea = MutableLiveData<String>()
 
 
-    var districtList:ArrayAdapter<String>
 
 
-    init {
-        var districtArryList = ArrayList<String>()
-        districtList= ArrayAdapter(app, R.layout.list_autocomplete_products,R.id.lbl_name,districtArryList)
-
-    }
+    var selectedDistrict = DistrictList()
+    var selectedTown = MutableLiveData<TownList>()
+    var selectedArea = MutableLiveData<AreaList>()
 
 
     fun getLocationList(): MutableLiveData<Locations> {
@@ -48,24 +45,38 @@ class LocationModelView(application: Application) : AndroidViewModel(application
     }
 
 
-    fun getDistrictList(): MutableLiveData<District>  {
-        return locationRepository.getDistrict(isLocationListLoading)
+    fun getDistrictList() :  MutableLiveData<District>{
+        return locationRepository.getDistrictList(isNewLocationLoading)
     }
 
-    fun setDistrictList(district : District){
-        var districtArryList = ArrayList<String>()
-        for(item in district.districtList){
-            districtArryList.add(item.districtName)
-        }
-        districtList= ArrayAdapter(app, R.layout.list_autocomplete_products,R.id.lbl_name,districtArryList)
+    fun getTownList() : MutableLiveData<Town>{
+        return locationRepository.getTown(isNewLocationLoading,selectedDistrict.districtID)
+
+    }
+
+    fun getAreaList(): MutableLiveData<Area>{
+        return locationRepository.getArea(isNewLocationLoading)
+    }
+
+    fun getLocationTypeList(): MutableLiveData<LocationsTyps>{
+        return locationRepository.getLocationType(isNewLocationLoading)
     }
 
 
 
-    fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-
+    fun onDistrictItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        selectedDistrict = parent!!.getItemAtPosition(position) as DistrictList
     }
+
+    fun onTownItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        selectedTown.value = parent!!.getItemAtPosition(position) as TownList
+    }
+
+    fun onAreaItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        selectedArea.value = parent!!.getItemAtPosition(position) as AreaList
+    }
+
 
 
 

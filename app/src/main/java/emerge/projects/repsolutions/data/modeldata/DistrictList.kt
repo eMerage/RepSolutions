@@ -3,8 +3,8 @@ package emerge.projects.repsolutions.data.modeldata
 import com.google.gson.annotations.SerializedName
 
 class DistrictList (
-    @SerializedName("id")
+    @SerializedName("districtID")
     var districtID: Int = 0,
-    @SerializedName("name")
+    @SerializedName("districtName")
     var districtName: String = ""
 ){}

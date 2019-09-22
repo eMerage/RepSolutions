@@ -34,15 +34,15 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             minifyEnabled true
-            buildConfigField "String", "RESOURCE_ID", '\"5050\"'
-            buildConfigField "String", "API_BASE_URL", '\" http://agstar.emerge.lk:8082/Agstar_Fertilizer_Production/api/\"'
+            buildConfigField "String", "TOKEN_ID", '\"5050\"'
+            buildConfigField "String", "API_BASE_URL", '\" http://agstar.emerge.lk:8082/RepSolution_Dev/api/\"'
         }
         debug {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             minifyEnabled true
-            buildConfigField "String", "RESOURCE_ID", '\"5050\"'
-            buildConfigField "String", "API_BASE_URL", '\" http://agstar.emerge.lk:8082/MR_DCR_DEMO/api/\"'
+            buildConfigField "String", "TOKEN_ID", '\"5050\"'
+            buildConfigField "String", "API_BASE_URL", '\" http://agstar.emerge.lk:8082/RepSolution_Dev/api/\"'
         }
     }
 }

@@ -45,7 +45,7 @@ interface APIInterface {
 
 
     @GET("District/GetAllDistricts")
-    abstract fun getDistricts(): Observable<District>
+    abstract fun getDistricts(@Query("tokenID") tokenID: String): Observable<District>
 
 
     @GET("Town/GetAllTown")

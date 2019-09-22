@@ -9,6 +9,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.JsonObject
+import emerge.projects.repsolutions.BuildConfig
 import emerge.projects.repsolutions.R
 import emerge.projects.repsolutions.data.modeldata.*
 import emerge.projects.repsolutions.services.api.APIInterface
@@ -29,6 +30,8 @@ class LocationRepo(application: Application) {
     val sharedPref = app?.getSharedPreferences("filename1", Context.MODE_PRIVATE)
     var networkErrorHandler: NetworkErrorHandler = NetworkErrorHandler()
 
+
+    val tokenID = BuildConfig.TOKEN_ID
 
     private val USER_ID = "userID"
     private val USER_TYPE = "userType"
@@ -106,119 +109,37 @@ class LocationRepo(application: Application) {
     }
 
 
-/*
-    fun getDistrict(loding: ObservableField<Boolean>, roleAdapter: ArrayAdapter<String>): District {
-
-        var result = District()
-        var data = District()
-        var rol = roleAdapter
-
-        loding.set(true)
-
-        if (!Utils.checkInternetConnection(app))
-            Toast.makeText(
-                app,
-                "No internet connection you will miss the latest information ",
-                Toast.LENGTH_LONG
-            ).show()
-
-
-        var test = District()
-        test.districtStatus = true
-
-        var testList = ArrayList<DistrictList>()
-        testList.add(DistrictList(1, "D1"))
-        testList.add(DistrictList(1, "D2"))
-        testList.add(DistrictList(1, "D4"))
-        testList.add(DistrictList(1, "D5"))
-        testList.add(DistrictList(1, "D9"))
-
-
-        Handler().postDelayed(Runnable {
-            test.districtList = testList
-
-            result = test
-            loding.set(false)
-
-
-
-            var districtArryList = ArrayList<String>()
-            for(item in result.districtList){
-                districtArryList.add(item.districtName)
-            }
-            rol= ArrayAdapter(app, R.layout.list_autocomplete_products, R.id.lbl_name,districtArryList)
-
-
-        }, 5000)
-
-
-        */
-/*  apiInterface.getDistricts()
-              .subscribeOn(Schedulers.io())
-              .doOnError { it }
-              .doOnTerminate { }
-              .observeOn(AndroidSchedulers.mainThread())
-              .subscribe(object : Observer<District> {
-                  override fun onSubscribe(d: Disposable) {
-                  }
-                  override fun onNext(log: District) {
-                      data = log
-                  }
-                  override fun onError(e: Throwable) {
-                      data.districtNetworkError = networkErrorHandler(e)
-                      result.postValue(data)
-                      loding.set(false)
-                  }
-                  override fun onComplete() {
-                      result.postValue(data)
-                      loding.set(false)
-                  }
-              })
-
-  *//*
-
-
-
-        return result
-    }
-*/
-
-
-    fun getDistrict(loding: ObservableField<Boolean>): MutableLiveData<District> {
-
+    fun getDistrictList(loding: ObservableField<Boolean>): MutableLiveData<District> {
         val result = MutableLiveData<District>()
         var data = District()
-
         loding.set(true)
-
         if (!Utils.checkInternetConnection(app))
             Toast.makeText(
                 app,
                 "No internet connection you will miss the latest information ",
                 Toast.LENGTH_LONG
             ).show()
+        apiInterface.getDistricts(tokenID)
+            .subscribeOn(Schedulers.io())
+            .doOnError { it }
+            .doOnTerminate { }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<District> {
+                override fun onSubscribe(d: Disposable) {
+                }
+                override fun onNext(log: District) {
+                    data = log
+                }override fun onError(e: Throwable) {
+                    data.districtNetworkError = networkErrorHandler(e)
 
-
-        var test = District()
-        test.districtStatus = true
-
-        var testList = ArrayList<DistrictList>()
-        testList.add(DistrictList(1, "D1"))
-        testList.add(DistrictList(1, "D2"))
-        testList.add(DistrictList(1, "D4"))
-        testList.add(DistrictList(1, "D5"))
-        testList.add(DistrictList(1, "D9"))
-
-
-        test.districtList = testList
-
-        result.postValue(test)
-        loding.set(false)
-
-
-
-
-
+                    result.postValue(data)
+                    loding.set(false)
+                }
+                override fun onComplete() {
+                    result.postValue(data)
+                    loding.set(false)
+                }
+            })
         return result
     }
 
@@ -249,6 +170,79 @@ class LocationRepo(application: Application) {
 
 
         test.townList = testList
+
+        result.postValue(test)
+        loding.set(false)
+
+
+
+        return result
+    }
+
+    fun getArea(loding: ObservableField<Boolean>): MutableLiveData<Area> {
+        val result = MutableLiveData<Area>()
+        var data = Area()
+
+        loding.set(true)
+
+        if (!Utils.checkInternetConnection(app))
+            Toast.makeText(
+                app,
+                "No internet connection you will miss the latest information ",
+                Toast.LENGTH_LONG
+            ).show()
+
+
+        var test = Area()
+        test.areaStatus = true
+
+        var testList = ArrayList<AreaList>()
+        testList.add(AreaList(1, "A1"))
+        testList.add(AreaList(1, "A2"))
+        testList.add(AreaList(1, "A4"))
+        testList.add(AreaList(1, "A5"))
+        testList.add(AreaList(1, "A9"))
+
+
+        test.areaList = testList
+
+        result.postValue(test)
+        loding.set(false)
+
+
+
+        return result
+    }
+
+
+    fun getLocationType(loding: ObservableField<Boolean>): MutableLiveData<LocationsTyps> {
+        val result = MutableLiveData<LocationsTyps>()
+        var data = LocationsTyps()
+
+        loding.set(true)
+
+        if (!Utils.checkInternetConnection(app))
+            Toast.makeText(
+                app,
+                "No internet connection you will miss the latest information ",
+                Toast.LENGTH_LONG
+            ).show()
+
+
+        var test = LocationsTyps()
+        test.locationsTypeStatus = true
+
+        var testList = ArrayList<LocationsTypeList>()
+        testList.add(LocationsTypeList(1, "LT1"))
+        testList.add(LocationsTypeList(1, "LT2"))
+        testList.add(LocationsTypeList(1, "LT4"))
+        testList.add(LocationsTypeList(1, "LT5"))
+        testList.add(LocationsTypeList(1, "LT9"))
+
+
+        // if no type add "No Location Type"
+
+        test.locationsTypeList = testList
 
         result.postValue(test)
         loding.set(false)
