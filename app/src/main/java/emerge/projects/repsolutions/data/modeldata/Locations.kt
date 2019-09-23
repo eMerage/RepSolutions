@@ -8,11 +8,12 @@ data class Locations(
     var locationsStatus: Boolean = false,
 
 
-    @SerializedName("status")
+    @SerializedName("locationsDuplicate")
     var isLocationsDuplicate: Boolean = false,
 
     @SerializedName("error")
     var locationsNetworkError: NetworkError = NetworkError(),
+
 
 
 

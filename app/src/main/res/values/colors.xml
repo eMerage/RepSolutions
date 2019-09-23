@@ -21,4 +21,7 @@
     <color name="textcolor3">#565659</color>
     <color name="colorblack">#000000</color>
 
+
+    <color name="colorRed">#c0392b</color>
+
 </resources>

@@ -119,7 +119,32 @@ class LocationRepo(application: Application) {
                 "No internet connection you will miss the latest information ",
                 Toast.LENGTH_LONG
             ).show()
-        apiInterface.getDistricts(tokenID)
+
+
+
+
+
+        var test = District()
+        test.districtStatus = true
+
+        var testList = ArrayList<DistrictList>()
+        testList.add(DistrictList(1, "D1"))
+        testList.add(DistrictList(1, "D2"))
+        testList.add(DistrictList(1, "D4"))
+        testList.add(DistrictList(1, "D5"))
+        testList.add(DistrictList(1, "D9"))
+
+
+        test.districtList = testList
+
+        result.postValue(test)
+        loding.set(false)
+
+
+
+
+
+ /*       apiInterface.getDistricts(tokenID)
             .subscribeOn(Schedulers.io())
             .doOnError { it }
             .doOnTerminate { }
@@ -139,7 +164,7 @@ class LocationRepo(application: Application) {
                     result.postValue(data)
                     loding.set(false)
                 }
-            })
+            })*/
         return result
     }
 
@@ -234,10 +259,10 @@ class LocationRepo(application: Application) {
 
         var testList = ArrayList<LocationsTypeList>()
         testList.add(LocationsTypeList(1, "LT1"))
-        testList.add(LocationsTypeList(1, "LT2"))
-        testList.add(LocationsTypeList(1, "LT4"))
-        testList.add(LocationsTypeList(1, "LT5"))
-        testList.add(LocationsTypeList(1, "LT9"))
+        testList.add(LocationsTypeList(2, "LT2"))
+        testList.add(LocationsTypeList(5, "LT4"))
+        testList.add(LocationsTypeList(9, "LT5"))
+        testList.add(LocationsTypeList(47, "LT9"))
 
 
         // if no type add "No Location Type"
@@ -270,6 +295,7 @@ class LocationRepo(application: Application) {
         val result = MutableLiveData<Locations>()
         var data = Locations()
 
+
         if (!Utils.checkInternetConnection(app)) {
             data.locationsNetworkError.errorCode = "INT"
             data.locationsNetworkError.errorTitle = "Connection"
@@ -282,20 +308,21 @@ class LocationRepo(application: Application) {
             data.locationsNetworkError.errorMessage = "Location not set properly,please try again !"
 
             result.postValue(data)
-        } else if (locName.isNullOrEmpty()) {
+
+        } else if ((locName.isNullOrEmpty()) || (locName == "null")) {
             data.locationsNetworkError.errorCode = "EMPTY"
             data.locationsNetworkError.errorTitle = "Empty"
             data.locationsNetworkError.errorMessage = "Location Name is empty !"
             result.postValue(data)
 
-        } else if (locAddress.isNullOrEmpty()) {
+        } else if (locAddress.isNullOrEmpty() || (locAddress == "null")) {
 
             data.locationsNetworkError.errorCode = "EMPTY"
             data.locationsNetworkError.errorTitle = "Empty"
             data.locationsNetworkError.errorMessage = "Location Address is empty !"
             result.postValue(data)
 
-        } else if (locArea.isNullOrEmpty()) {
+        } else if ((locArea.isNullOrEmpty()) || (locArea == "null")) {
             data.locationsNetworkError.errorCode = "EMPTY"
             data.locationsNetworkError.errorTitle = "Empty"
             data.locationsNetworkError.errorMessage = "Location Area is empty !"
@@ -334,6 +361,36 @@ class LocationRepo(application: Application) {
 
 
 
+
+            loding.set(false)
+
+
+
+            var test = Locations()
+
+            test.locationsStatus = false
+            test.isLocationsDuplicate = true
+
+
+            var testList = ArrayList<LocationsList>()
+
+            testList.add(LocationsList(1, "D1", 6.9866772, 79.8893072))
+            testList.add(LocationsList(2, "D2", 6.9866772, 79.8893072))
+            testList.add(LocationsList(3, "D3", 6.9866772, 79.8893072))
+
+            testList.add(LocationsList(4, "D4", 6.9866772, 79.8893072))
+            testList.add(LocationsList(5, "D5", 6.9866772, 79.8893072))
+            testList.add(LocationsList(6, "D6", 6.9866772, 79.8893072))
+
+
+
+            test.locationsList = testList
+
+
+            result.postValue(test)
+
+
+/*
             apiInterface.saveLocation(jsonObject)
                 .subscribeOn(Schedulers.io())
                 .doOnError { it }
@@ -359,6 +416,7 @@ class LocationRepo(application: Application) {
                         result.postValue(data)
                     }
                 })
+*/
 
 
         }

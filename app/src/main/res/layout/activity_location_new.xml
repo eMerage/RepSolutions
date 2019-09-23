@@ -158,7 +158,8 @@
                             android:fontFamily="@font/roboto_light"
                             android:textColorHint="@color/textcolor2"
                             android:completionThreshold="1"
-                            android:hint="Location District *"
+                            android:text="@={newlocations.editTextAreaAddress}"
+                            android:hint="Location Area *"
                             android:onItemClickListener ="@{newlocations.onAreaItemSelected}"
                             android:textSize="16sp" />
 
@@ -221,8 +222,6 @@
 
 
 
-
-
 <!--
 
                         <AutoCompleteTextView
@@ -240,8 +239,6 @@
                             android:hint="Location District *"
                             android:textSize="16sp" />
 -->
-
-
 
 
 
@@ -265,9 +262,12 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="40dp"
                             android:textSize="15sp"
+                            android:onItemSelected="@{newlocations.onLocationTypeSelected}"
                             android:background="@drawable/bg_dialog_background"
                             app:fontFamily="@font/roboto_light"
                             android:id="@+id/spinner_location_type"/>
+
+
 
 
                         <Button

@@ -1,310 +1,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff">
+    android:background="#EEEEEE">
 
     <TextView
-        android:id="@+id/textview1"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/roboto_light"
-        android:text="Visit No"
-        android:textColor="@color/colorblack"
-        android:textSize="14sp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textview_new_doc_visitsno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/roboto_thin"
-        android:text="Visit No"
-        android:textColor="@color/colorblack"
-        android:textSize="15sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textview_new_doc_visitsdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:fontFamily="@font/roboto_light"
-        android:text="2019-05-06"
-        android:textColor="@color/colorblack"
-        android:textSize="15sp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="40dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:id="@+id/textview2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="SELECT DOCTOR"
-                    android:textColor="@color/colorblack"
-                    android:textSize="14sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <AutoCompleteTextView
-                    android:id="@+id/autoCompleteTextView_doctors"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/roboto_thin"
-                    android:text="SEARCH DOCTORS"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textview2"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_docvisits"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                tools:listitem="@layout/listview_doctors"
-                android:layout_marginLeft="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_height="match_parent" />
-
-
-
-            <TextView
-                android:id="@+id/textview3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="SELECT DOCTOR'S LOCATION"
-                android:textColor="@color/colorblack"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_doclocations"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                tools:listitem="@layout/listview_doctors"
-                android:layout_marginLeft="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_height="match_parent" />
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:id="@+id/textview4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="SELECT PRODUCTS"
-                    android:textColor="@color/colorblack"
-                    android:textSize="14sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <AutoCompleteTextView
-                    android:id="@+id/autoCompleteTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/roboto_thin"
-                    android:text="SEARCH PRODUCTS"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textview4"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_docvistsproducts"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                tools:listitem="@layout/listview_doctors"
-                android:layout_marginLeft="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_height="match_parent" />
-
-
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:id="@+id/textview5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/roboto_light"
-                    android:text="SELECT SAMPLES OR PROMO ITEMS"
-                    android:textColor="@color/colorblack"
-                    android:textSize="14sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <AutoCompleteTextView
-                    android:id="@+id/autoCompleteTextView_promoitems"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/roboto_thin"
-                    android:text="SEARCH ITEMS"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textview5"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_docvistspromoitems"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                tools:listitem="@layout/listview_doctors"
-                android:layout_marginLeft="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/textview6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="ANY COMMENT"
-                android:textColor="@color/colorblack"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/edittext_note"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:ems="10"
-                android:hint="Comment"
-                android:fontFamily="@font/roboto_light"
-                android:inputType="textMultiLine"
-                android:textColor="@color/colorblack"
-                android:textColorHint="@color/textcolor2"
-                android:textSize="14sp" />
-
-
-            <TextView
-                android:id="@+id/textview7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/roboto_light"
-                android:text="ADD PHOTOGRAPH"
-                android:textColor="@color/colorblack"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp">
-
-                <ImageView
-                    android:id="@+id/imageView_photo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/ic_photo_camera" />
-
-                <ImageView
-                    android:id="@+id/imageView_taken_photo"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_doctor"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_centerVertical="true" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <Button
-                android:id="@+id/button_login"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/button_state_list_animator"
-                android:fontFamily="@font/roboto_light"
-                android:text="SAVE VISIT"
-                android:textColor="@color/babypowder"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/progressBarToButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
-        </LinearLayout>
-    </ScrollView>
-
-
-
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

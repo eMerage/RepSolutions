@@ -14,28 +14,22 @@ import emerge.projects.repsolutions.data.modeldata.LocationsTypeList
 import emerge.projects.repsolutions.data.modeldata.TownList
 import kotlinx.android.synthetic.main.textview_autocomplete.view.*
 
-class SpinnerLocationTypeAdaptor(
-    context: Context, @LayoutRes private val layoutResource: Int,
-    private val list: ArrayList<LocationsTypeList>
-) :
-    ArrayAdapter<LocationsTypeList>(context, layoutResource, list) {
-
+class SpinnerLocationTypeAdaptor(ctx: Context, moods: ArrayList<LocationsTypeList>) :
+    ArrayAdapter<LocationsTypeList>(ctx, 0, moods) {
     override fun getView(position: Int, recycledView: View?, parent: ViewGroup): View {
-        val view =
-            LayoutInflater.from(context).inflate(layoutResource, parent, false)
-        view.lbl_name.text = "${list[position].locationsTypeName}"
+        return this.createView(position, recycledView, parent)
+    }
+    override fun getDropDownView(position: Int, recycledView: View?, parent: ViewGroup): View {
+        return this.createView(position, recycledView, parent)
+    }
+    private fun createView(position: Int, recycledView: View?, parent: ViewGroup): View {
+        val mood = getItem(position)
+        val view = recycledView ?: LayoutInflater.from(context).inflate(
+            R.layout.textview_autocomplete,
+            parent,
+            false
+        )
+        view.lbl_name.text = mood?.locationsTypeName
         return view
     }
-
-    override fun getDropDownView(position: Int, recycledView: View?, parent: ViewGroup): View {
-        val view =
-            LayoutInflater.from(context).inflate(layoutResource, parent, false)
-
-        view.lbl_name.text = "${list[position].locationsTypeName}"
-
-        return super.getDropDownView(position, view, parent)
-    }
-
-
 }
-

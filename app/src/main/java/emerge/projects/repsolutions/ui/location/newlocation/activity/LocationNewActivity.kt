@@ -3,6 +3,7 @@ package emerge.projects.repsolutions.ui.location.newlocation.activity
 import android.Manifest
 import android.app.ActivityOptions
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
@@ -15,6 +16,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.Window
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -47,6 +49,7 @@ import emerge.projects.repsolutions.ui.location.newlocation.adaptar.SpinnerLocat
 import emerge.projects.repsolutions.ui.visitsdoctors.doctorsvisitslist.activity.DoctorsVisitsActivity
 import emerge.projects.repsolutions.ui.visitsdoctors.newdoctorvisit.activity.DoctorsNewVisitsActivity
 import kotlinx.android.synthetic.main.activity_location_new.*
+import java.util.ArrayList
 
 class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     OnMapReadyCallback {
@@ -68,6 +71,9 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     var currentLocation: LatLng = LatLng(0.0, 0.0)
 
     private lateinit var mMap: GoogleMap
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -153,6 +159,10 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     }
 
 
+
+
+
+
     fun getDistricts() {
         viewModelNewLocation.getDistrictList().observe(this, Observer<District> {
             it?.let { result ->
@@ -212,7 +222,6 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 if (result.locationsTypeStatus) {
                     val adapter = SpinnerLocationTypeAdaptor(
                         this,
-                        R.layout.textview_spinner,
                         result.locationsTypeList
                     )
                     spinner_location_type.adapter = adapter
@@ -248,9 +257,39 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
 
     fun locationSaveOnClick(view: View) {
+        viewModelNewLocation.saveNewLocations(currentLocation,false).observe(this, Observer<Locations> {
+            it?.let { result ->
+                if (result.locationsStatus) {
 
+
+                } else {
+                    if(result.isLocationsDuplicate){
+                        locationDuplicateListDialog(result.locationsList)
+                    }else{
+                        errorAlertDialog(result.locationsNetworkError)
+                    }
+
+                }
+            }
+        })
 
     }
+
+    fun locationDuplicateListDialog(list : ArrayList<LocationsList>){
+        val dialogDuplicate = Dialog(this)
+        dialogDuplicate.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialogDuplicate.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+        dialogDuplicate.setContentView(R.layout.dialog_location_duplicate)
+        dialogDuplicate.setCancelable(true)
+
+
+        dialogDuplicate.show()
+
+    }
+
+
+
+
 
     override fun onMapReady(p0: GoogleMap?) {
         mMap = p0!!
