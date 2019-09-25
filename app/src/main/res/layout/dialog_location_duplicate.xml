@@ -31,6 +31,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textview2"
             tools:listitem="@layout/listview_locations"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_height="wrap_content" />
 
@@ -63,6 +64,7 @@
             android:fontFamily="@font/roboto_medium"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:onClick="dialogDuplicateLocationSaveNoClick"
             app:layout_constraintTop_toBottomOf="@+id/textview2"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="17sp" />
@@ -78,6 +80,7 @@
             android:paddingBottom="10dp"
             app:layout_constraintRight_toRightOf="parent"
             android:text="YES"
+            android:onClick="dialogDuplicateLocationSaveYesClick"
             android:fontFamily="@font/roboto_medium"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"

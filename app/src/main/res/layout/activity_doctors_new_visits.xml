@@ -7,7 +7,7 @@
 
         <variable
             name="newdoctorsVistis"
-            type="emerge.projects.repsolutions.ui.visitsdoctors.mvvm.DoctorModelView" />
+            type="emerge.projects.repsolutions.ui.doctors.mvvm.DoctorModelView" />
 
         <import type="android.view.View"></import>
     </data>

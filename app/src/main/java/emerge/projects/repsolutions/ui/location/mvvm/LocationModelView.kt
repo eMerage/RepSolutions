@@ -81,6 +81,12 @@ class LocationModelView(application: Application) : AndroidViewModel(application
         selectedLocationType = parent!!.getItemAtPosition(position) as LocationsTypeList
     }
 
+    fun searchLocation(sreachText : String,locationList : ArrayList<LocationsList>): MutableLiveData<ArrayList<LocationsList>>{
+        return locationRepository.searchLocation(sreachText,locationList)
+    }
+
+
+
       fun saveNewLocations(currentLocation: LatLng,locationDuplicateStatus : Boolean): MutableLiveData<Locations> {
            return locationRepository.saveNewLocation(isNewLocationLoading,
                currentLocation,

@@ -61,6 +61,8 @@ data class LocationsList(
     @SerializedName("isRejected")
     var locationsIsRejectedd: Boolean = false,
 
+    var locationsApprovalStats: String = "",
+
     var isSelect: Boolean = false
 
 

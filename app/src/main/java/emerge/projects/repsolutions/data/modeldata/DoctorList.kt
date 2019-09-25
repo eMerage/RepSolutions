@@ -42,15 +42,18 @@ data class DoctorList(
     var doctorIsApproved: Boolean = false,
 
     @SerializedName("isRejected")
-    var doctorIsRejectedd: Boolean = false,
+    var doctorIsRejected: Boolean = false,
 
     @SerializedName("specializationList")
     var specializationList: ArrayList<SpecializationList> = ArrayList<SpecializationList>(),
 
-
+    @SerializedName("locationList")
+    var locationList: ArrayList<LocationsList> = ArrayList<LocationsList>(),
     @SerializedName("visitsProduct")
     var visitsProduct: ArrayList<ProductList> = ArrayList<ProductList>(),
-
+    var allSpecializations: String = "",
+    var allLocations: String = "",
+    var doctorStats: String = "",
 
     var isSelect: Boolean = false
 

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import emerge.projects.repsolutions.R
+import emerge.projects.repsolutions.ui.home.activity.HomeActivity
 import emerge.projects.repsolutions.ui.login.activity.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -16,7 +17,8 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed(Runnable {
 
-            val intent = Intent(this, LoginActivity::class.java)
+           /* val intent = Intent(this, LoginActivity::class.java)*/
+            val intent = Intent(this, HomeActivity::class.java)
             val bndlanimation = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
             startActivity(intent, bndlanimation)
 

@@ -20,8 +20,10 @@
 
     <string name="title_activity_docvists">Doctor\'s Visits</string>
     <string name="title_activity_newdocvists">New Doctor Visit</string>
-    <string name="title_activity_location">Locations</string>
-    <string name="title_activity_newlocation">New Locations</string>
+    <string name="title_activity_location">Your Locations</string>
+    <string name="title_activity_newlocation">New Location</string>
+    <string name="title_activity_doctors">Your Doctors</string>
+    <string name="title_activity_newdoctors">New Doctor</string>
 
 
 </resources>

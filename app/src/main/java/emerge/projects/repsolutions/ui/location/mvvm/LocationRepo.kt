@@ -20,6 +20,7 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.regex.Pattern
 
 
 class LocationRepo(application: Application) {
@@ -63,19 +64,35 @@ class LocationRepo(application: Application) {
 
         var testList = ArrayList<LocationsList>()
 
-        testList.add(LocationsList(1, "D1", 6.9866772, 79.8893072))
-        testList.add(LocationsList(2, "D2", 6.9866772, 79.8893072))
-        testList.add(LocationsList(3, "D3", 6.9866772, 79.8893072))
+        testList.add(LocationsList(1, "Asiri", 6.9866772, 79.8893072,
+            "","Negombo","Negombo",
+            2,"Gampaha",3,"rep",6,
+            "","Ty",false,
+            true,"Pending"))
 
-        testList.add(LocationsList(4, "D4", 6.9866772, 79.8893072))
-        testList.add(LocationsList(5, "D5", 6.9866772, 79.8893072))
-        testList.add(LocationsList(6, "D6", 6.9866772, 79.8893072))
 
+        testList.add(LocationsList(2, "Nawaloka", 6.9866772, 79.8893072,
+            "","Negombo","Negombo",
+            2,"Gampaha",3,"rep",6,
+            "","Ty",false,
+            true,"Pending"))
+
+
+        testList.add(LocationsList(3, "Hemas", 6.9866772, 79.8893072,
+            "","Colombo","Kollupitiya",
+            2,"Colombo",3,"rep",6,
+            "","Hos",false,
+            true,"Rejected"))
+
+
+        testList.add(LocationsList(4, "Brownes", 6.9866772, 79.8893072,
+            "","Negombo","Negombo",
+            2,"Gampaha",3,"saman",6,
+            "","Ty",false,
+            true,"Approved"))
 
 
         test.locationsList = testList
-
-
 
         result.postValue(test)
         loding.set(false)
@@ -272,6 +289,87 @@ class LocationRepo(application: Application) {
         result.postValue(test)
         loding.set(false)
 
+
+
+        return result
+    }
+
+    fun searchLocation(searchName : String,locationList : ArrayList<LocationsList>): MutableLiveData<ArrayList<LocationsList>> {
+
+        var result = MutableLiveData<ArrayList<LocationsList>>()
+        var data = ArrayList<LocationsList>()
+
+
+        var patternName = searchName
+
+        if((searchName.isNullOrEmpty() ) ||  (searchName == "all")  ||  (searchName == "") ){
+            result.postValue(locationList)
+        }else{
+            for (loc in locationList) {
+                var listLocName = loc.locationsName
+
+                var pattern = Pattern.compile(patternName, Pattern.CASE_INSENSITIVE)
+                var matcher = pattern.matcher(listLocName)
+                if (matcher.lookingAt()) {
+                    data.add(loc)
+                }
+
+                var listLocArea = loc.locationsArea
+                var patternArea = Pattern.compile(patternName, Pattern.CASE_INSENSITIVE)
+                var matcherArea = patternArea.matcher(listLocArea)
+
+                if (matcherArea.lookingAt()) {
+                    data.add(loc)
+                }
+
+                var listLocTown = loc.locationsTown
+                var patternTown = Pattern.compile(patternName, Pattern.CASE_INSENSITIVE)
+                var matcherTown = patternTown.matcher(listLocTown)
+
+                if (matcherTown.lookingAt()) {
+                    data.add(loc)
+                }
+
+
+                var listLocDistrict = loc.locationsDistrict
+                var patternDistrict = Pattern.compile(patternName, Pattern.CASE_INSENSITIVE)
+                var matcherDistrict = patternDistrict.matcher(listLocDistrict)
+
+                if (matcherDistrict.lookingAt()) {
+                    data.add(loc)
+                }
+
+                var listLocType = loc.locationsType
+                var patternType = Pattern.compile(patternName, Pattern.CASE_INSENSITIVE)
+                var matcherType = patternType.matcher(listLocType)
+
+                if (matcherType.lookingAt()) {
+                    data.add(loc)
+                }
+
+                var listLocRep = loc.locationsCreatedByName
+                var patternRep = Pattern.compile(patternName, Pattern.CASE_INSENSITIVE)
+                var matcherRep = patternRep.matcher(listLocRep)
+
+                if (matcherRep.lookingAt()) {
+                    data.add(loc)
+                }
+
+
+                var listLocStatus = loc.locationsApprovalStats
+                var patternStatus = Pattern.compile(patternName, Pattern.CASE_INSENSITIVE)
+                var matcherStatus = patternStatus.matcher(listLocStatus)
+
+                if (matcherStatus.lookingAt()) {
+                    data.add(loc)
+                }
+
+            }
+
+            data.distinctBy { it.locationsID }
+            result.postValue(data)
+
+        }
 
 
         return result

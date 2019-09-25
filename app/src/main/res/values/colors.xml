@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <!-- <color name="colorPrimary">#008577</color>
+     <color name="colorPrimaryDark">#00574B</color>
 
 
-    <color name="colorAccent">#00574B</color>
+     <color name="colorAccent">#00574B</color>-->
 
+
+    <!-- <color name="colorPrimary">#3e5c7b</color>-->
+    <color name="colorPrimary">#2a3f54</color>
+    <color name="colorPrimaryDark">#2a3f54</color>
+
+
+    <color name="colorAccent">#be8d3f</color>
 
 
     <color name="babypowder">#FEFEFA</color>
 
     <color name="theamcolor">#00acb6</color>
-
-
 
 
     <color name="textcolor0">#252527</color>
@@ -21,7 +26,11 @@
     <color name="textcolor3">#565659</color>
     <color name="colorblack">#000000</color>
 
-
+    <color name="colorYellow">#fad24d</color>
     <color name="colorRed">#c0392b</color>
+    <color name="colorDarkGreen">#016D5E</color>
+
+
+
 
 </resources>

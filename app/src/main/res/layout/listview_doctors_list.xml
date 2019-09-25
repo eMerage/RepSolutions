@@ -16,7 +16,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorDarkGreen"
+        android:background="@color/colorYellow"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -25,11 +25,11 @@
             android:layout_gravity="center_vertical"
             android:background="@color/colorYellow">
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageview_locationlist_location"
+                android:id="@+id/imageview_doctor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_location_default" />
+                android:src="@drawable/ic_doctor" />
 
         </RelativeLayout>
 
@@ -40,7 +40,7 @@
             android:background="@color/babypowder">
 
             <TextView
-                android:id="@+id/textview_hint_location_name"
+                android:id="@+id/textview_hint_doctors_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -51,7 +51,7 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/textview_location_name"
+                android:id="@+id/textview_doctors_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -62,26 +62,26 @@
 
 
             <TextView
-                android:id="@+id/textview_hint_location_address"
+                android:id="@+id/textview_hint_doctors_spec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
-                android:text="Address"
-                android:layout_below="@+id/textview_location_name"
+                android:text="Spec"
+                android:layout_below="@+id/textview_doctors_name"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
 
 
             <TextView
-                android:id="@+id/textview_location_address"
+                android:id="@+id/textview_doctors_spec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
 
                 android:layout_marginLeft="100dp"
-                android:layout_below="@+id/textview_location_name"
+                android:layout_below="@+id/textview_doctors_name"
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
@@ -89,24 +89,25 @@
 
 
             <TextView
-                android:id="@+id/textview_hint_location_area"
+                android:id="@+id/textview_hint_doctors_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
-                android:text="Area"
-                android:layout_below="@+id/textview_location_address"
+                android:text="Location"
+                android:layout_below="@+id/textview_doctors_spec"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/textview_location_area"
+                android:id="@+id/textview_doctors_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="100dp"
-                android:layout_below="@+id/textview_location_address"
+
+                android:layout_below="@+id/textview_doctors_spec"
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
@@ -114,24 +115,25 @@
 
 
             <TextView
-                android:id="@+id/textview_hint_location_rep"
+                android:id="@+id/textview_hint_doctors_rep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
                 android:text="Rep"
-                android:layout_below="@+id/textview_location_area"
+                android:layout_below="@+id/textview_doctors_location"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/textview_location_rep"
+                android:id="@+id/textview_doc_rep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="100dp"
-                android:layout_below="@+id/textview_location_area"
+
+                android:layout_below="@+id/textview_doctors_location"
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
@@ -141,75 +143,75 @@
 
 
             <TextView
-                android:id="@+id/textview_hint_location_town"
+                android:id="@+id/textview_hint_doctors_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
-                android:text="Town"
-                android:layout_below="@+id/textview_location_rep"
+                android:text="Mobile"
+                android:layout_below="@+id/textview_doc_rep"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/textview_location_town"
+                android:id="@+id/textview_contactnumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="100dp"
 
-                android:layout_below="@+id/textview_location_rep"
+                android:layout_below="@+id/textview_doc_rep"
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
 
 
             <TextView
-                android:id="@+id/textview_hint_location_district"
+                android:id="@+id/textview_hint_doctors_regnumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
-                android:text="District"
-                android:layout_below="@+id/textview_location_town"
+                android:text="Reg. Number"
+                android:layout_below="@+id/textview_contactnumber"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/textview_location_district"
+                android:id="@+id/textview_regnumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="100dp"
 
-                android:layout_below="@+id/textview_location_town"
+                android:layout_below="@+id/textview_contactnumber"
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
 
 
             <TextView
-                android:id="@+id/textview_hint_location_locationType"
+                android:id="@+id/textview_hint_doctors_qualification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
-                android:text="locationType"
-                android:layout_below="@+id/textview_location_district"
+                android:text="Qualification"
+                android:layout_below="@+id/textview_regnumber"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/textview_locationType"
+                android:id="@+id/textview_qualification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="100dp"
 
-                android:layout_below="@+id/textview_location_district"
+                android:layout_below="@+id/textview_regnumber"
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
@@ -217,13 +219,13 @@
 
 
             <TextView
-                android:id="@+id/textview_hint_location_status"
+                android:id="@+id/textview_hint_doctors_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
                 android:text="Status"
-                android:layout_below="@+id/textview_locationType"
+                android:layout_below="@+id/textview_qualification"
                 android:fontFamily="@font/roboto_medium"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
@@ -235,23 +237,10 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="100dp"
                 android:layout_marginBottom="10dp"
-                android:layout_below="@+id/textview_locationType"
+                android:layout_below="@+id/textview_qualification"
                 android:fontFamily="@font/roboto_light"
                 android:textColor="@color/colorblack"
                 android:textSize="15sp"/>
-
-            
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/image_view_location_map"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/textview_status"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_location"/>
 
         </RelativeLayout>
 

@@ -1,4 +1,4 @@
-package emerge.projects.repsolutions.ui.location.locationlist.activity
+package emerge.projects.repsolutions.ui.doctors.doctors.activity
 
 import android.app.ActivityOptions
 import android.app.AlertDialog
@@ -21,46 +21,45 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import emerge.projects.repsolutions.R
-import emerge.projects.repsolutions.data.modeldata.Locations
-import emerge.projects.repsolutions.data.modeldata.LocationsList
-import emerge.projects.repsolutions.databinding.ActivityLoctaionListBinding
-import emerge.projects.repsolutions.ui.doctors.doctors.activity.DoctorsActivity
+import emerge.projects.repsolutions.data.modeldata.Doctor
+import emerge.projects.repsolutions.data.modeldata.DoctorList
+import emerge.projects.repsolutions.data.modeldata.NetworkError
+import emerge.projects.repsolutions.databinding.ActivityDoctorsBinding
+import emerge.projects.repsolutions.ui.doctors.doctors.adaptar.DoctorListAdaptor
 import emerge.projects.repsolutions.ui.doctors.doctorsnew.activity.DoctorNewActivity
-import emerge.projects.repsolutions.ui.location.locationlist.adaptar.LocationListAdaptor
-import emerge.projects.repsolutions.ui.location.mvvm.LocationModelView
-import emerge.projects.repsolutions.ui.location.locationnew.activity.LocationNewActivity
 import emerge.projects.repsolutions.ui.doctors.doctorsvisitslist.activity.DoctorsVisitsActivity
+import emerge.projects.repsolutions.ui.doctors.mvvm.DoctorModelView
 import emerge.projects.repsolutions.ui.doctors.doctorvisitnew.activity.DoctorsNewVisitsActivity
-import kotlinx.android.synthetic.main.activity_loctaion_list.*
+import emerge.projects.repsolutions.ui.location.locationlist.activity.LoctaionListActivity
+import emerge.projects.repsolutions.ui.location.locationnew.activity.LocationNewActivity
+import kotlinx.android.synthetic.main.activity_doctors.*
 
-class LoctaionListActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
+class DoctorsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
-
-
-    lateinit var bindingLocationList: ActivityLoctaionListBinding
-    lateinit var viewModelLocationList: LocationModelView
+    lateinit var bindingDoctorsList: ActivityDoctorsBinding
+    lateinit var viewModelDoctorList: DoctorModelView
 
 
     lateinit var drawerLayout: DrawerLayout
 
-     var locationList : ArrayList<LocationsList>? = null
+    var doctorsList : ArrayList<DoctorList>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_doctors)
+
+        bindingDoctorsList = DataBindingUtil.setContentView(this, R.layout.activity_doctors)
+        bindingDoctorsList.lifecycleOwner = this
+        viewModelDoctorList = ViewModelProviders.of(this).get(DoctorModelView::class.java)
+        bindingDoctorsList.doctors = viewModelDoctorList
 
 
-        bindingLocationList = DataBindingUtil.setContentView(this, R.layout.activity_loctaion_list)
-        bindingLocationList.lifecycleOwner = this
-        viewModelLocationList = ViewModelProviders.of(this).get(LocationModelView::class.java)
-        bindingLocationList.locations = viewModelLocationList
-
-
-        val toolbar: Toolbar = findViewById(R.id.toolbar_locationlist)
+        val toolbar: Toolbar = findViewById(R.id.toolbar_doctorslist)
         setSupportActionBar(toolbar)
 
 
-        drawerLayout = findViewById(R.id.drawer_layout_locationlist)
+        drawerLayout = findViewById(R.id.drawer_layout_doctorslist)
         val toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -72,11 +71,10 @@ class LoctaionListActivity : AppCompatActivity(),NavigationView.OnNavigationItem
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        val navView: NavigationView = findViewById(R.id.nav_view_locationlist)
+        val navView: NavigationView = findViewById(R.id.nav_view_doctorslist)
         navView.setNavigationItemSelectedListener(this)
 
         addMenuItemInNavMenuDrawer()
-
         handleIntent(intent)
 
     }
@@ -84,13 +82,13 @@ class LoctaionListActivity : AppCompatActivity(),NavigationView.OnNavigationItem
     override fun onStart() {
         super.onStart()
 
-        getLocationList()
-        swiperefresh_locationlist.setOnRefreshListener {
-            getLocationList()
+
+        getDoctors()
+        swiperefresh_doctorslist.setOnRefreshListener {
+            getDoctors()
         }
 
     }
-
     override fun isDestroyed(): Boolean {
 
         return super.isDestroyed()
@@ -121,36 +119,38 @@ class LoctaionListActivity : AppCompatActivity(),NavigationView.OnNavigationItem
     private fun handleIntent(intent: Intent) {
         if (Intent.ACTION_SEARCH == intent.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
-            locationList?.let { serachLocation(query, it) }
+            doctorsList?.let { searchtDoctors(query, it) }
         }
 
     }
 
-
-    fun getLocationList(){
-        viewModelLocationList!!.getLocationList().observe(this, Observer<Locations> {
+    fun getDoctors(){
+        viewModelDoctorList!!.getDoctors().observe(this, Observer<Doctor> {
             it?.let { result ->
-                swiperefresh_locationlist.isRefreshing = false
-                if(result.locationsStatus){
-                    locationList = result.locationsList
-                    recyclerView_locationlist.adapter = LocationListAdaptor(result.locationsList,this)
+                swiperefresh_doctorslist.isRefreshing = false
+                doctorsList = result.approvedDoctorList
+                if(result.doctorsStatus){
+                    recyclerView_doctorslist.adapter = DoctorListAdaptor(result.approvedDoctorList,this)
                 }else{
-                    errorAlertDialog(result.locationsNetworkError.errorTitle,result.locationsNetworkError.errorMessage)
+                    errorAlertDialog(result.networkError)
                 }
+
 
             }
         })
+
     }
 
-    private fun serachLocation(searchText : String,locationList : ArrayList<LocationsList>){
-        viewModelLocationList.searchLocation(searchText,locationList).observe(this, Observer<ArrayList<LocationsList>> {
+    fun searchtDoctors(searchText : String,doctorsList : ArrayList<DoctorList>){
+        viewModelDoctorList!!.searchDoctors(searchText,doctorsList).observe(this, Observer<ArrayList<DoctorList>> {
             it?.let { result ->
                 if(result.isEmpty()){
                     Toast.makeText(this, "No search results found", Toast.LENGTH_LONG).show()
                 }else{
-                    recyclerView_locationlist.adapter = LocationListAdaptor(result,this)
+                    recyclerView_doctorslist.adapter = DoctorListAdaptor(result,this)
 
                 }
+
             }
         })
 
@@ -161,36 +161,45 @@ class LoctaionListActivity : AppCompatActivity(),NavigationView.OnNavigationItem
         when (item.title) {
             "Doctor's Visits" -> {
                 val intentDocVists = Intent(this, DoctorsVisitsActivity::class.java)
-                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                val bndlanimationDocVists =
+                    ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out)
+                        .toBundle()
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
 
             "New Doctor's Visits" -> {
                 val intentDocVists = Intent(this, DoctorsNewVisitsActivity::class.java)
-                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                val bndlanimationDocVists =
+                    ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out)
+                        .toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
+            "Locations" -> {
+                val intentDocVists = Intent(this, LoctaionListActivity::class.java)
+                val bndlanimationDocVists =
+                    ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out)
+                        .toBundle()
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
             "New Location" -> {
                 val intentDocVists = Intent(this, LocationNewActivity::class.java)
-                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
-                startActivity(intentDocVists, bndlanimationDocVists)
-                this.finish()
-            }
-            "Doctors" -> {
-                val intentDocVists = Intent(this, DoctorsActivity::class.java)
-                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                val bndlanimationDocVists =
+                    ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out)
+                        .toBundle()
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
             "New Doctor" -> {
                 val intentDocVists = Intent(this, DoctorNewActivity::class.java)
-                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                val bndlanimationDocVists =
+                    ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out)
+                        .toBundle()
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
-
 
 
         }
@@ -201,16 +210,16 @@ class LoctaionListActivity : AppCompatActivity(),NavigationView.OnNavigationItem
 
     fun addMenuItemInNavMenuDrawer() {
 
-        var menu = nav_view_locationlist.menu
+        var menu = nav_view_doctorslist.menu
         menu.add("Doctor's Visits")
         menu.add("New Doctor's Visits")
+        menu.add("Locations")
         menu.add("New Location")
-        menu.add("Doctors")
         menu.add("New Doctor")
+
         //  menu.add(0, MENU_EDIT, Menu.NONE, R.string.itemName).setIcon(R.drawable.itemDrawable);
 
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.toolbar_location_list, menu)
@@ -223,15 +232,16 @@ class LoctaionListActivity : AppCompatActivity(),NavigationView.OnNavigationItem
     }
 
 
-
-    fun errorAlertDialog(title : String?,message : String?){
+    fun errorAlertDialog(networkError: NetworkError) {
         val alertDialogBuilder = AlertDialog.Builder(this)
-        alertDialogBuilder.setTitle(title)
-        alertDialogBuilder.setMessage(message)
+        alertDialogBuilder.setTitle(networkError.errorTitle)
+        alertDialogBuilder.setMessage(networkError.errorMessage)
         alertDialogBuilder.setPositiveButton(
             "OK",
             DialogInterface.OnClickListener { _, _ -> return@OnClickListener })
         alertDialogBuilder.show()
-
     }
+
+
+
 }

@@ -79,8 +79,8 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="40dp"
-                            android:fontFamily="@font/roboto_light"
                             android:ems="10"
+                            android:fontFamily="@font/roboto_light"
                             android:hint="location Name *"
                             android:inputType="textPersonName"
                             android:text="@={newlocations.editTextLocationName}"
@@ -109,10 +109,10 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="40dp"
                             android:ems="10"
-                            android:hint="Location Address *"
-                            android:text="@={newlocations.editTextLocationAddress}"
-                            android:inputType="textPersonName"
                             android:fontFamily="@font/roboto_light"
+                            android:hint="Location Address *"
+                            android:inputType="textPersonName"
+                            android:text="@={newlocations.editTextLocationAddress}"
                             android:textColor="@color/colorblack"
                             android:textColorHint="@color/textcolor2"
                             android:textSize="16sp" />
@@ -130,24 +130,6 @@
                             android:textSize="16sp" />
 
 
-                      <!--  <EditText
-                            android:id="@+id/edittext_location_area"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="40dp"
-                            android:ems="10"
-                            android:hint="Location Area *"
-                            android:text="@={newlocations.editTextLocationArea}"
-                            android:onTextChanged="@{newlocations.onTextChangedLocationArea}"
-                            android:inputType="textPersonName"
-                            android:textColor="@color/colorblack"
-                            android:textColorHint="@color/textcolor2"
-                            android:textSize="15sp" />-->
-
-
-
                         <AutoCompleteTextView
                             android:id="@+id/autoCompleteTextView_location_area"
                             android:layout_width="match_parent"
@@ -155,14 +137,13 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="40dp"
-                            android:fontFamily="@font/roboto_light"
-                            android:textColorHint="@color/textcolor2"
                             android:completionThreshold="1"
-                            android:text="@={newlocations.editTextAreaAddress}"
+                            android:fontFamily="@font/roboto_light"
                             android:hint="Location Area *"
-                            android:onItemClickListener ="@{newlocations.onAreaItemSelected}"
+                            android:onItemClickListener="@{newlocations.onAreaItemSelected}"
+                            android:text="@={newlocations.editTextAreaAddress}"
+                            android:textColorHint="@color/textcolor2"
                             android:textSize="16sp" />
-
 
 
                         <TextView
@@ -184,11 +165,11 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="40dp"
-                            android:fontFamily="@font/roboto_light"
-                            android:textColorHint="@color/textcolor2"
                             android:completionThreshold="1"
+                            android:fontFamily="@font/roboto_light"
                             android:hint="Location District *"
-                            android:onItemClickListener ="@{newlocations.onDistrictItemSelected}"
+                            android:onItemClickListener="@{newlocations.onDistrictItemSelected}"
+                            android:textColorHint="@color/textcolor2"
                             android:textSize="16sp" />
 
 
@@ -211,35 +192,31 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginRight="40dp"
-                            android:fontFamily="@font/roboto_light"
-                            android:textColorHint="@color/textcolor2"
                             android:completionThreshold="1"
-                            android:onItemClickListener ="@{newlocations.onTownItemSelected}"
+                            android:fontFamily="@font/roboto_light"
                             android:hint="Location Town *"
-                            android:textSize="16sp" />
-
-
-
-
-
-<!--
-
-                        <AutoCompleteTextView
-                            android:id="@+id/autoCompleteTextView_location_district"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="40dp"
-                            android:fontFamily="@font/roboto_light"
-                            android:completionThreshold="1"
+                            android:onItemClickListener="@{newlocations.onTownItemSelected}"
                             android:textColorHint="@color/textcolor2"
-                            app:bindingAdapterDistrict="@{newlocations.bindingAdapterDistrict}"
-                            android:onItemClickListener ="@{newlocations.onItemSelected}"
-                            android:hint="Location District *"
                             android:textSize="16sp" />
--->
 
+
+                        <!--
+
+                                                <AutoCompleteTextView
+                                                    android:id="@+id/autoCompleteTextView_location_district"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginLeft="20dp"
+                                                    android:layout_marginTop="5dp"
+                                                    android:layout_marginRight="40dp"
+                                                    android:fontFamily="@font/roboto_light"
+                                                    android:completionThreshold="1"
+                                                    android:textColorHint="@color/textcolor2"
+                                                    app:bindingAdapterDistrict="@{newlocations.bindingAdapterDistrict}"
+                                                    android:onItemClickListener ="@{newlocations.onItemSelected}"
+                                                    android:hint="Location District *"
+                                                    android:textSize="16sp" />
+                        -->
 
 
                         <TextView
@@ -254,26 +231,45 @@
                             android:textSize="16sp" />
 
 
-                        <Spinner
+
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_centerInParent="true"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="20dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_spinner_background"
                             android:layout_marginTop="5dp"
-                            android:layout_marginRight="40dp"
-                            android:textSize="15sp"
-                            android:onItemSelected="@{newlocations.onLocationTypeSelected}"
-                            android:background="@drawable/bg_dialog_background"
-                            app:fontFamily="@font/roboto_light"
-                            android:id="@+id/spinner_location_type"/>
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp">
+
+                            <Spinner
+                                android:id="@+id/spinner_location_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_centerInParent="true"
+                                android:background="@drawable/bg_spinner_background"
+                                android:onItemSelected="@{newlocations.onLocationTypeSelected}"
+                                android:textSize="15sp"
+                                android:spinnerMode="dropdown"
+                                app:fontFamily="@font/roboto_light" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="20dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:src="@drawable/ic_arrow_drop_down" />
 
 
+                        </RelativeLayout>
 
 
                         <Button
                             android:id="@+id/button_login"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="45dp"
+                            android:layout_gravity="bottom"
                             android:layout_margin="20dp"
                             android:background="@drawable/button_state_list_animator"
                             android:fontFamily="@font/roboto_light"

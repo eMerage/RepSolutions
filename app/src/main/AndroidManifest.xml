@@ -17,7 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -38,30 +37,69 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.visitsdoctors.doctorsvisitslist.activity.DoctorsVisitsActivity"
+            android:name=".ui.doctors.doctorsvisitslist.activity.DoctorsVisitsActivity"
             android:label="@string/title_activity_docvists"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.visitsdoctors.newdoctorvisit.activity.DoctorsNewVisitsActivity"
+            android:name=".ui.doctors.doctorvisitnew.activity.DoctorsNewVisitsActivity"
             android:label="@string/title_activity_newdocvists"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".ui.location.locationlist.activity.LoctaionListActivity"
-            android:label="@string/title_activity_location"
+            android:name=".ui.doctors.doctors.activity.DoctorsActivity"
+            android:label="@string/title_activity_doctors"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/location_searchable" />
+        </activity>
+        <activity
+            android:name=".ui.location.locationlist.activity.LoctaionListActivity"
+            android:label="@string/title_activity_location"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/location_searchable" />
+        </activity>
 
 
-        <activity android:name=".ui.location.newlocation.activity.LocationNewActivity"
-            android:label="@string/title_activity_newlocation"
+        <activity android:name=".ui.doctors.doctorsnew.activity.DoctorNewActivity"
+            android:label="@string/title_activity_newdoctors"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden"></activity>
 
+
+
+
+        <activity
+            android:name=".ui.location.locationnew.activity.LocationNewActivity"
+            android:label="@string/title_activity_newlocation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

@@ -52,4 +52,8 @@ interface APIInterface {
     abstract fun getTown(@Query("DistrictID") mrID: Int): Observable<Town>
 
 
+    @GET("Doctor/GetAllDoctors")
+    abstract fun getDoctors(@Query("MRID") mrID: Int): Observable<Doctor>
+
+
 }
