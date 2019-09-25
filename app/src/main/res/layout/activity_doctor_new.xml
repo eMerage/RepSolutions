@@ -40,6 +40,269 @@
 
 
 
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp">
+
+                            <com.mikhaellopez.circularimageview.CircularImageView
+                                android:id="@+id/img_doc"
+                                android:layout_width="100dp"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_doctor"
+                                app:civ_border_color="#fff"
+                                app:civ_border_width="1dp"
+                                app:civ_shadow="true"
+                                app:civ_shadow_color="#be8d3f"
+                                app:civ_shadow_radius="1" />
+
+
+                            <TextView
+                                android:id="@+id/textview_new_doc_visitsdate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toEndOf="@+id/img_doc"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_toRightOf="@+id/img_doc"
+                                android:fontFamily="@font/roboto_light"
+                                android:text="Follow the steps to add new Doctor"
+                                android:textColor="@color/colorblack"
+                                android:textSize="22sp" />
+
+                        </RelativeLayout>
+
+
+
+
+                        <TextView
+                            android:id="@+id/textView_hint_doc_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/roboto_light"
+                            android:text="Name of the Doctor"
+                            android:textColor="@color/colorblack"
+                            android:textSize="16sp" />
+
+
+                        <EditText
+                            android:id="@+id/edittext_doctor_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="40dp"
+                            android:ems="10"
+                            android:fontFamily="@font/roboto_light"
+                            android:hint="Doctor Name *"
+                            android:inputType="textPersonName"
+                            android:text="@={newDoctor.editTextDoctorName}"
+                            android:textColor="@color/colorblack"
+                            android:textColorHint="@color/textcolor3"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/textView_hint_doc_contact_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_light"
+                            android:text="Contact Number of the Doctor"
+                            android:textColor="@color/colorblack"
+                            android:textSize="16sp" />
+
+
+                        <EditText
+                            android:id="@+id/edittext_doc_contact_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="40dp"
+                            android:ems="10"
+                            android:fontFamily="@font/roboto_light"
+                            android:hint="Contact Number  "
+                            android:inputType="phone"
+                            android:text="@={newDoctor.editTextDocContactNumber}"
+                            android:textColor="@color/colorblack"
+                            android:textColorHint="@color/textcolor2"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/textView_hint_doc_reg_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_light"
+                            android:text="Registration Number of the Doctor"
+                            android:textColor="@color/colorblack"
+                            android:textSize="16sp" />
+
+                        <EditText
+                            android:id="@+id/edittext_doc_reg_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="40dp"
+                            android:ems="10"
+                            android:fontFamily="@font/roboto_light"
+                            android:hint="Contact Number  "
+                            android:inputType="text"
+                            android:text="@={newDoctor.editTextDocRegNumber}"
+                            android:textColor="@color/colorblack"
+                            android:textColorHint="@color/textcolor2"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/textView_hint_doc_qualification"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_light"
+                            android:text="Qualification of the Doctor"
+                            android:textColor="@color/colorblack"
+                            android:textSize="16sp" />
+
+
+                        <EditText
+                            android:id="@+id/edittext_doc_qualification"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="40dp"
+                            android:ems="10"
+                            android:fontFamily="@font/roboto_light"
+                            android:hint="Qualification  "
+                            android:inputType="text"
+                            android:text="@={newDoctor.editTextDocQualification}"
+                            android:textColor="@color/colorblack"
+                            android:textColorHint="@color/textcolor2"
+                            android:textSize="16sp" />
+
+
+                        <TextView
+                            android:id="@+id/textView_hint_location_town"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/roboto_light"
+                            android:text="Select Specialties"
+                            android:textColor="@color/colorblack"
+                            android:textSize="16sp" />
+
+
+
+                        <RelativeLayout
+                            android:id="@+id/relativelayout_spec_serch"
+                            android:layout_width="match_parent"
+                            android:layout_below="@+id/textView10"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="45dp">
+
+                            <TextView
+                                android:id="@+id/textView1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/roboto_light"
+                                android:text="Spec"
+                                android:textColor="@color/colorblack"
+                                android:textSize="16sp" />
+
+
+                            <ImageView
+                                android:id="@+id/imageView_spec_search"
+                                android:layout_width="45dp"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="5dp"
+                                android:paddingLeft="10dp"
+                                android:paddingTop="10dp"
+                                android:paddingRight="10dp"
+                                android:src="@drawable/ic_search_black" />
+
+
+                            <AutoCompleteTextView
+                                android:id="@+id/autoCompleteTextView_doc_spec"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:completionThreshold="1"
+                                android:fontFamily="@font/roboto_light"
+                                android:hint="Search Spec"
+                                android:onItemClickListener="@{newDoctor.onDocSpecItemSelected}"
+                                android:textColorHint="@color/textcolor2"
+                                android:textSize="16sp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_toStartOf="@+id/imageView_spec_search"
+                                android:layout_toLeftOf="@+id/imageView_spec_search"
+                                android:layout_toEndOf="@+id/textView1"
+                                android:layout_toRightOf="@+id/textView1"/>
+
+
+
+                        </RelativeLayout>
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView_newdoc"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            tools:listitem="@layout/listview_doctors"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:layout_height="match_parent" />
+
+
+
+                        <Button
+                            android:id="@+id/button_login"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="20dp"
+                            android:background="@drawable/button_state_list_animator"
+                            android:fontFamily="@font/roboto_light"
+                            android:onClick="locationSaveOnClick"
+                            android:text="Save"
+                            android:textColor="@color/babypowder"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </ScrollView>
+
+
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -59,6 +322,7 @@
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:visibility="gone"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header" />
     </androidx.drawerlayout.widget.DrawerLayout>

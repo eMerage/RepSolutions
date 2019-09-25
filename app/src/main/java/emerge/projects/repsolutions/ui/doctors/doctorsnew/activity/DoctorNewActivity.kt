@@ -7,17 +7,23 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import emerge.projects.repsolutions.R
 import emerge.projects.repsolutions.data.modeldata.NetworkError
+import emerge.projects.repsolutions.data.modeldata.Specialization
+import emerge.projects.repsolutions.data.modeldata.SpecializationList
 import emerge.projects.repsolutions.databinding.ActivityDoctorNewBinding
 import emerge.projects.repsolutions.ui.doctors.doctors.activity.DoctorsActivity
+import emerge.projects.repsolutions.ui.doctors.doctorsnew.adaptar.AutocompleteDocSpecAdaptor
+import emerge.projects.repsolutions.ui.doctors.doctorsnew.adaptar.SpecializationAdaptor
 import emerge.projects.repsolutions.ui.doctors.doctorsvisitslist.activity.DoctorsVisitsActivity
 import emerge.projects.repsolutions.ui.doctors.doctorvisitnew.activity.DoctorsNewVisitsActivity
 import emerge.projects.repsolutions.ui.doctors.mvvm.DoctorModelView
@@ -64,6 +70,7 @@ class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
 
         addMenuItemInNavMenuDrawer()
 
+        getDoctorsSpecialization()
 
     }
 
@@ -92,6 +99,36 @@ class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         super.onResume()
 
     }
+
+    fun getDoctorsSpecialization(){
+
+        viewModelNewDoctor!!.getDoctorsSpecialization().observe(this, Observer<Specialization> {
+            it?.let { result ->
+                if(result.specStatus){
+                    val adapter = AutocompleteDocSpecAdaptor(
+                        this,
+                        R.layout.textview_autocomplete,
+                        result.specializationList
+                    )
+                    autoCompleteTextView_doc_spec.setAdapter(adapter)
+                    var specAdaptor= SpecializationAdaptor(result.specializationList,this)
+                    recyclerView_newdoc.adapter = specAdaptor
+                    specAdaptor.setOnItemClickListener(object : SpecializationAdaptor.ClickListener {
+                        override fun onClick(spec: SpecializationList, aView: View) {
+
+
+
+                        }
+                    })
+                }else{
+                    errorAlertDialog(result.specNetworkError)
+                }
+
+            }
+        })
+
+    }
+
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.title) {

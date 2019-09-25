@@ -1,6 +1,8 @@
 package emerge.projects.repsolutions.ui.doctors.mvvm
 
 import android.app.Application
+import android.view.View
+import android.widget.AdapterView
 import androidx.databinding.ObservableField
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -19,7 +21,6 @@ class DoctorModelView(application: Application) : AndroidViewModel(application) 
 
 
 
-
     var selectedDoctorID = MutableLiveData<Int>()
     var selectedLocationID = MutableLiveData<Int>()
     var selectedProductsList: MutableLiveData<ArrayList<ProductList>> =
@@ -28,7 +29,12 @@ class DoctorModelView(application: Application) : AndroidViewModel(application) 
         MutableLiveData<ArrayList<ProductList>>()
 
 
+    var editTextDoctorName = MutableLiveData<String>()
+    var editTextDocContactNumber = MutableLiveData<String>()
+    var editTextDocRegNumber = MutableLiveData<String>()
+    var editTextDocQualification = MutableLiveData<String>()
 
+    var selectedDoctorSpec = SpecializationList()
 
     fun getDoctorsVisits(): MutableLiveData<VisitsDoctors> {
         return docsRepository.getDoctorsVisits(isVisitsDocListLoading)
@@ -71,6 +77,15 @@ class DoctorModelView(application: Application) : AndroidViewModel(application) 
     fun searchDoctors(searchName : String,doctorsList : ArrayList<DoctorList>): MutableLiveData<ArrayList<DoctorList>> {
         return docsRepository.searchDoctors(searchName,doctorsList)
     }
+
+    fun onDocSpecItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        selectedDoctorSpec = parent!!.getItemAtPosition(position) as SpecializationList
+    }
+
+    fun getDoctorsSpecialization(): MutableLiveData<Specialization> {
+        return docsRepository.getDoctorsSpecialization(isNewDoctorLoading)
+    }
+
 
 
 

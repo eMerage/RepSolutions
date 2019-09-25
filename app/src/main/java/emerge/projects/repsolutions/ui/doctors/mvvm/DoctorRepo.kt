@@ -5,6 +5,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
+import emerge.projects.repsolutions.BuildConfig
 import emerge.projects.repsolutions.data.modeldata.*
 import emerge.projects.repsolutions.services.api.APIInterface
 import emerge.projects.repsolutions.services.api.ApiClient
@@ -25,7 +26,7 @@ class DoctorRepo (application: Application){
     val sharedPref = app?.getSharedPreferences("filename1", Context.MODE_PRIVATE)
     var networkErrorHandler: NetworkErrorHandler = NetworkErrorHandler()
 
-
+    val tokenID = BuildConfig.TOKEN_ID
 
     private val USER_ID = "userID"
     private val USER_TYPE = "userType"
@@ -573,6 +574,67 @@ class DoctorRepo (application: Application){
             result.postValue(data)
         }
 
+        return result
+    }
+
+
+    fun getDoctorsSpecialization(loding : ObservableField<Boolean>) : MutableLiveData<Specialization> {
+        val result = MutableLiveData<Specialization>()
+        var data = Specialization()
+
+        loding.set(true)
+
+        if (!Utils.checkInternetConnection(app))
+            Toast.makeText(app, "No internet connection you will miss the latest information ", Toast.LENGTH_LONG).show()
+
+
+
+        var test = Specialization()
+
+        test.specStatus = true
+
+
+        var testList = ArrayList<SpecializationList>()
+
+        testList.add(SpecializationList(1,"Surgeon"))
+        testList.add(SpecializationList(2,"Oncologist"))
+        testList.add(SpecializationList(3,"Neurologist"))
+        testList.add(SpecializationList(4,"Cardiologists"))
+        testList.add(SpecializationList(5,"Dermatologists"))
+        testList.add(SpecializationList(6,"Gastroenterologists"))
+
+        testList.add(SpecializationList(7,"Pathologists"))
+        testList.add(SpecializationList(8,"Radiologists"))
+        testList.add(SpecializationList(9,"Urologists"))
+
+
+        test.specializationList = testList
+
+        result.postValue(test)
+        loding.set(false)
+
+
+     /*   apiInterface.getASpecializations(tokenID)
+            .subscribeOn(Schedulers.io())
+            .doOnError { it }
+            .doOnTerminate { }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<Specialization> {
+                override fun onSubscribe(d: Disposable) {
+                }
+                override fun onNext(log: Specialization) {
+                    data = log
+                }
+                override fun onError(e: Throwable) {
+                    data.specNetworkError = networkErrorHandler(e)
+                    result.postValue(data)
+                    loding.set(false)
+                }
+                override fun onComplete() {
+                    result.postValue(data)
+                    loding.set(false)
+                }
+            })*/
         return result
     }
 

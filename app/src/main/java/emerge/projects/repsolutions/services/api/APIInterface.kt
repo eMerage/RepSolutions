@@ -55,5 +55,8 @@ interface APIInterface {
     @GET("Doctor/GetAllDoctors")
     abstract fun getDoctors(@Query("MRID") mrID: Int): Observable<Doctor>
 
+    @GET("Specialization/GetApprovedSpecializations")
+    fun getASpecializations(@Query("TokenID") tokenID: String): Observable<Specialization>
+
 
 }

@@ -6,5 +6,8 @@ data class SpecializationList(
     @SerializedName("id")
     var specID: Int = 0,
     @SerializedName("name")
-    var specName: String = ""
+    var specName: String = "",
+
+    var isSelectSpec: Boolean = false
+
 ){}
