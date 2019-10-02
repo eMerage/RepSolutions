@@ -137,7 +137,7 @@
                             android:layout_marginRight="40dp"
                             android:ems="10"
                             android:fontFamily="@font/roboto_light"
-                            android:hint="Contact Number  "
+                            android:hint="Contact Number *"
                             android:inputType="phone"
                             android:text="@={newDoctor.editTextDocContactNumber}"
                             android:textColor="@color/colorblack"
@@ -165,7 +165,7 @@
                             android:layout_marginRight="40dp"
                             android:ems="10"
                             android:fontFamily="@font/roboto_light"
-                            android:hint="Contact Number  "
+                            android:hint="Registration Number  "
                             android:inputType="text"
                             android:text="@={newDoctor.editTextDocRegNumber}"
                             android:textColor="@color/colorblack"
@@ -273,10 +273,10 @@
 
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerView_newdoc"
+                            android:id="@+id/recyclerView_doc_spec"
                             android:layout_width="match_parent"
                             android:orientation="horizontal"
-                            tools:listitem="@layout/listview_doctors"
+                            tools:listitem="@layout/listview_specialization"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="10dp"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -285,14 +285,14 @@
 
 
                         <Button
-                            android:id="@+id/button_login"
+                            android:id="@+id/button_save_doc"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_gravity="bottom"
                             android:layout_margin="20dp"
                             android:background="@drawable/button_state_list_animator"
                             android:fontFamily="@font/roboto_light"
-                            android:onClick="locationSaveOnClick"
+                            android:onClick="doctorSaveOnClick"
                             android:text="Save"
                             android:textColor="@color/babypowder"
                             android:textSize="15sp"
@@ -322,7 +322,6 @@
             android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:visibility="gone"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header" />
     </androidx.drawerlayout.widget.DrawerLayout>

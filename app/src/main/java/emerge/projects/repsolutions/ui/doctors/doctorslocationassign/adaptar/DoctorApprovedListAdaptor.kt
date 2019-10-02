@@ -1,10 +1,11 @@
-package emerge.projects.repsolutions.ui.doctors.doctorvisitnew.adaptor
+package emerge.projects.repsolutions.ui.doctors.doctorslocationassign.adaptar
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -12,12 +13,16 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+
 import emerge.projects.repsolutions.R
 import emerge.projects.repsolutions.data.modeldata.*
-import kotlinx.android.synthetic.main.listview_porducts.view.*
+import emerge.projects.repsolutions.ui.doctors.doctorsnew.adaptar.SpecializationAdaptor
+import kotlinx.android.synthetic.main.listview_doctors.view.*
+import kotlinx.android.synthetic.main.listview_doctors_list.view.*
 
-class VisitsSampleProductsAdaptor (val items: ArrayList<ProductList>, val context: Context) :
-    RecyclerView.Adapter<VisitsSampleProductsAdaptor.ViewHolderDoctorsVisits>() {
+
+class DoctorApprovedListAdaptor (val items: ArrayList<DoctorList>, val context: Context) :
+    RecyclerView.Adapter<DoctorApprovedListAdaptor.ViewHolderLocationList>() {
 
     lateinit var mClickListener: ClickListener
 
@@ -25,8 +30,8 @@ class VisitsSampleProductsAdaptor (val items: ArrayList<ProductList>, val contex
         return items.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderDoctorsVisits {
-        return ViewHolderDoctorsVisits(LayoutInflater.from(context).inflate(R.layout.listview_porducts, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderLocationList {
+        return ViewHolderLocationList(LayoutInflater.from(context).inflate(R.layout.listview_doctors, parent, false))
 
     }
 
@@ -34,25 +39,30 @@ class VisitsSampleProductsAdaptor (val items: ArrayList<ProductList>, val contex
         mClickListener = aClickListener
     }
     interface ClickListener {
-        fun onClick(product: ProductList, aView: View)
+        fun onClick(doc: DoctorList, aView: View)
     }
 
-    override fun onBindViewHolder(holder: ViewHolderDoctorsVisits, position: Int) {
+
+
+
+    override fun onBindViewHolder(holder: ViewHolderLocationList, position: Int) {
         var itemPostion = items[position]
 
-        holder.textviewName?.text = itemPostion.productName
+        holder.textviewDoctorsName.text= itemPostion.doctorName
+
 
 
         if (itemPostion.isSelect) {
-            holder.cardView.setCardBackgroundColor(context.resources.getColor(R.color.colorPrimary))
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.colorYellow))
         } else {
-            holder.cardView.setCardBackgroundColor(context.resources.getColor(R.color.babypowder))
+            holder.cardView.setCardBackgroundColor(ContextCompat.getColor(context, R.color.babypowder))
         }
 
 
+
         val requestOptions = RequestOptions()
-        requestOptions.placeholder(R.drawable.ic_doctor)
-        requestOptions.error(R.drawable.ic_doctor)
+        requestOptions.placeholder(R.drawable.ic_doctors_default)
+        requestOptions.error(R.drawable.ic_doctors_default)
 
 
         val requestListener = object : RequestListener<Bitmap> {
@@ -64,6 +74,7 @@ class VisitsSampleProductsAdaptor (val items: ArrayList<ProductList>, val contex
             ): Boolean {
                 return false
             }
+
             override fun onResourceReady(
                 resource: Bitmap,
                 model: Any,
@@ -77,32 +88,33 @@ class VisitsSampleProductsAdaptor (val items: ArrayList<ProductList>, val contex
 
         Glide.with(context)
             .asBitmap()
-            .load(itemPostion.imageUrl)
+            .load(itemPostion.doctorImageUrl)
             .apply(requestOptions)
             .listener(requestListener)
-            .into(holder.imageViewProducts)
-
-
-
-
-
+            .into(holder.imageviewDoctor)
 
     }
 
 
 
-    inner class ViewHolderDoctorsVisits(view: View) : RecyclerView.ViewHolder(view),View.OnClickListener  {
-        val textviewName = view.textview_product_name
-        val imageViewProducts = view.imageview_products
-        val cardView = view.card_view_docs_products
+    inner class ViewHolderLocationList(view: View) : RecyclerView.ViewHolder(view),View.OnClickListener  {
+        val textviewDoctorsName = view.textview_name
+        val imageviewDoctor = view.img_doc
+        val cardView = view.card_view_list_doc
+
 
         init {
             view.setOnClickListener(this)
         }
-
         override fun onClick(p0: View?) {
+
+            for(itemDoc in items){
+                itemDoc.isSelect = false
+            }
+
+            items[adapterPosition].isSelect = !items[adapterPosition].isSelect
             mClickListener.onClick( items[adapterPosition], p0!!)
-            items[adapterPosition].isSelect = true
+
             notifyDataSetChanged()
 
         }

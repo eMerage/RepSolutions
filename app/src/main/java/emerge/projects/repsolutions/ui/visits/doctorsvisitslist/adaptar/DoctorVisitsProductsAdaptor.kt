@@ -1,4 +1,4 @@
-package emerge.projects.repsolutions.ui.doctors.doctorsvisitslist.adaptar
+package emerge.projects.repsolutions.ui.visits.doctorsvisitslist.adaptar
 
 import android.content.Context
 import android.graphics.Bitmap

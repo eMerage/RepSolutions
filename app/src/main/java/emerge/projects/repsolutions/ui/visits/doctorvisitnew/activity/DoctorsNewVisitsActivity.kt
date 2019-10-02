@@ -1,4 +1,4 @@
-package emerge.projects.repsolutions.ui.doctors.doctorvisitnew.activity
+package emerge.projects.repsolutions.ui.visits.doctorvisitnew.activity
 
 import android.Manifest
 import android.app.ActivityOptions
@@ -37,13 +37,15 @@ import emerge.projects.repsolutions.R
 import emerge.projects.repsolutions.data.modeldata.*
 import emerge.projects.repsolutions.databinding.ActivityDoctorsNewVisitsBinding
 import emerge.projects.repsolutions.ui.doctors.doctors.activity.DoctorsActivity
+import emerge.projects.repsolutions.ui.doctors.doctorslocationassign.activity.DoctorLocationAssignActivity
 import emerge.projects.repsolutions.ui.doctors.doctorsnew.activity.DoctorNewActivity
 
 import emerge.projects.repsolutions.ui.location.locationlist.activity.LoctaionListActivity
 import emerge.projects.repsolutions.ui.location.locationnew.activity.LocationNewActivity
-import emerge.projects.repsolutions.ui.doctors.doctorsvisitslist.activity.DoctorsVisitsActivity
+import emerge.projects.repsolutions.ui.visits.doctorsvisitslist.activity.DoctorsVisitsActivity
 import emerge.projects.repsolutions.ui.doctors.mvvm.DoctorModelView
-import emerge.projects.repsolutions.ui.doctors.doctorvisitnew.adaptor.*
+import emerge.projects.repsolutions.ui.visits.doctorvisitnew.adaptor.*
+import emerge.projects.repsolutions.ui.home.activity.HomeActivity
 import kotlinx.android.synthetic.main.activity_doctors_new_visits.*
 
 class DoctorsNewVisitsActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener  {
@@ -176,7 +178,7 @@ class DoctorsNewVisitsActivity : AppCompatActivity(),NavigationView.OnNavigation
 
                         }
                     })
-                    autoCompleteTextView_doctors.setAdapter(AutoCompleteDoctorsAdapter(this, R.layout.activity_doctors_new_visits, R.id.lbl_name, result.approvedDoctorList))
+                    autoCompleteTextView_doctors.setAdapter(AutocompleteDoctorsAdaptor(this, R.layout.activity_doctors_new_visits,result.approvedDoctorList))
                 }else{
                     errorAlertDialog(result.networkError.errorTitle,result.networkError.errorMessage)
                 }
@@ -330,6 +332,12 @@ class DoctorsNewVisitsActivity : AppCompatActivity(),NavigationView.OnNavigation
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.title) {
+            "Dashboard" -> {
+                val intentDocVists = Intent(this, HomeActivity::class.java)
+                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
             "Doctor's Visits" -> {
                 val intentDocVists = Intent(this, DoctorsVisitsActivity::class.java)
                 val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
@@ -360,6 +368,12 @@ class DoctorsNewVisitsActivity : AppCompatActivity(),NavigationView.OnNavigation
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
+            "Assign Location to Doctors" -> {
+                val intentDocVists = Intent(this, DoctorLocationAssignActivity::class.java)
+                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
 
         }
 
@@ -370,11 +384,13 @@ class DoctorsNewVisitsActivity : AppCompatActivity(),NavigationView.OnNavigation
     fun addMenuItemInNavMenuDrawer() {
 
         var menu = nav_view_newdocvisits.menu
+        menu.add("Dashboard")
         menu.add("Doctor's Visits")
-        menu.add("Locations")
-        menu.add("New Location")
         menu.add("Doctors")
         menu.add("New Doctor")
+        menu.add("Assign Location to Doctors")
+        menu.add("Locations")
+        menu.add("New Location")
 
         //  menu.add(0, MENU_EDIT, Menu.NONE, R.string.itemName).setIcon(R.drawable.itemDrawable);
 

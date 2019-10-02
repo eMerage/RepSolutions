@@ -1,66 +1,69 @@
-package emerge.projects.repsolutions.ui.doctors.doctors.activity
+package emerge.projects.repsolutions.ui.doctors.doctorslocationassign.activity
 
 import android.app.ActivityOptions
 import android.app.AlertDialog
-import android.app.SearchManager
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.navigation.NavigationView
 import emerge.projects.repsolutions.R
-import emerge.projects.repsolutions.data.modeldata.Doctor
-import emerge.projects.repsolutions.data.modeldata.DoctorList
-import emerge.projects.repsolutions.data.modeldata.NetworkError
-import emerge.projects.repsolutions.databinding.ActivityDoctorsBinding
-import emerge.projects.repsolutions.ui.doctors.doctors.adaptar.DoctorListAdaptor
-import emerge.projects.repsolutions.ui.doctors.doctorslocationassign.activity.DoctorLocationAssignActivity
+import emerge.projects.repsolutions.data.modeldata.*
+import emerge.projects.repsolutions.databinding.ActivityDoctorsLocationAssignBinding
+import emerge.projects.repsolutions.ui.doctors.doctors.activity.DoctorsActivity
+import emerge.projects.repsolutions.ui.doctors.doctorslocationassign.adaptar.DoctorApprovedListAdaptor
+import emerge.projects.repsolutions.ui.doctors.doctorslocationassign.adaptar.LocationApprovedListAdaptor
 import emerge.projects.repsolutions.ui.doctors.doctorsnew.activity.DoctorNewActivity
 import emerge.projects.repsolutions.ui.visits.doctorsvisitslist.activity.DoctorsVisitsActivity
-import emerge.projects.repsolutions.ui.doctors.mvvm.DoctorModelView
 import emerge.projects.repsolutions.ui.visits.doctorvisitnew.activity.DoctorsNewVisitsActivity
+import emerge.projects.repsolutions.ui.visits.doctorvisitnew.adaptor.AutocompleteDoctorsAdaptor
+import emerge.projects.repsolutions.ui.doctors.mvvm.DoctorModelView
 import emerge.projects.repsolutions.ui.home.activity.HomeActivity
 import emerge.projects.repsolutions.ui.location.locationlist.activity.LoctaionListActivity
 import emerge.projects.repsolutions.ui.location.locationnew.activity.LocationNewActivity
-import kotlinx.android.synthetic.main.activity_doctors.*
+import emerge.projects.repsolutions.ui.location.locationuserassign.adaptar.AutocompleteLocationsAdaptor
+import kotlinx.android.synthetic.main.activity_doctors_location_assign.*
 
-class DoctorsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class DoctorLocationAssignActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
 
 
-    lateinit var bindingDoctorsList: ActivityDoctorsBinding
-    lateinit var viewModelDoctorList: DoctorModelView
+    lateinit var bindingDoctorsAssign: ActivityDoctorsLocationAssignBinding
+    lateinit var viewModelDoctorAssign: DoctorModelView
 
 
     lateinit var drawerLayout: DrawerLayout
 
-    var doctorsList : ArrayList<DoctorList>? = null
+
+    var doctorsList = MutableLiveData<Doctor>()
+    var locationList = MutableLiveData<Locations>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bindingDoctorsList = DataBindingUtil.setContentView(this, R.layout.activity_doctors)
-        bindingDoctorsList.lifecycleOwner = this
-        viewModelDoctorList = ViewModelProviders.of(this).get(DoctorModelView::class.java)
-        bindingDoctorsList.doctors = viewModelDoctorList
+        bindingDoctorsAssign = DataBindingUtil.setContentView(this, R.layout.activity_doctors_location_assign)
+        bindingDoctorsAssign.lifecycleOwner = this
+        viewModelDoctorAssign = ViewModelProviders.of(this).get(DoctorModelView::class.java)
+        bindingDoctorsAssign.doctorsassign = viewModelDoctorAssign
 
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar_doctorslist)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar_doctors_assign)
         setSupportActionBar(toolbar)
 
 
-        drawerLayout = findViewById(R.id.drawer_layout_doctorslist)
+        drawerLayout = findViewById(R.id.drawer_layout_doctors_assign)
         val toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -72,22 +75,21 @@ class DoctorsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        val navView: NavigationView = findViewById(R.id.nav_view_doctorslist)
+        val navView: NavigationView = findViewById(R.id.nav_view_doctors_assign)
         navView.setNavigationItemSelectedListener(this)
 
         addMenuItemInNavMenuDrawer()
-        handleIntent(intent)
 
     }
+
 
     override fun onStart() {
         super.onStart()
 
+        getApprovedDoctors()
+        getApprovedLocations()
 
-        getDoctors()
-        swiperefresh_doctorslist.setOnRefreshListener {
-            getDoctors()
-        }
+
 
     }
     override fun isDestroyed(): Boolean {
@@ -112,51 +114,126 @@ class DoctorsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
     }
 
+    fun assignDoctorsNoClick(view: View){
 
-    override fun onNewIntent(intent: Intent) {
-        handleIntent(intent)
-    }
-
-    private fun handleIntent(intent: Intent) {
-        if (Intent.ACTION_SEARCH == intent.action) {
-            val query = intent.getStringExtra(SearchManager.QUERY)
-            doctorsList?.let { searchtDoctors(query, it) }
-        }
-
-    }
-
-    fun getDoctors(){
-        viewModelDoctorList!!.getDoctors().observe(this, Observer<Doctor> {
+        viewModelDoctorAssign!!.assignDoctorsToLocation().observe(this, Observer<Doctor> {
             it?.let { result ->
-                swiperefresh_doctorslist.isRefreshing = false
-                doctorsList = result.approvedDoctorList
                 if(result.doctorsStatus){
-                    recyclerView_doctorslist.adapter = DoctorListAdaptor(result.approvedDoctorList,this)
+                    Toast.makeText(this, "Complain added already to this visits", Toast.LENGTH_LONG).show()
+
                 }else{
                     errorAlertDialog(result.networkError)
                 }
 
-
             }
         })
 
     }
 
-    fun searchtDoctors(searchText : String,doctorsList : ArrayList<DoctorList>){
-        viewModelDoctorList!!.searchDoctors(searchText,doctorsList).observe(this, Observer<ArrayList<DoctorList>> {
-            it?.let { result ->
-                if(result.isEmpty()){
-                    Toast.makeText(this, "No search results found", Toast.LENGTH_LONG).show()
-                }else{
-                    recyclerView_doctorslist.adapter = DoctorListAdaptor(result,this)
 
+    fun getApprovedDoctors(){
+        viewModelDoctorAssign!!.getApprovedDoctors().observe(this, Observer<Doctor> {
+            it?.let { result ->
+                doctorsList.value = result
+
+                if(result.doctorsStatus){
+
+                    var docAdaptar = DoctorApprovedListAdaptor(doctorsList.value!!.approvedDoctorList,this)
+                    recyclerView_doctors_assign.adapter =docAdaptar
+
+                    docAdaptar.setOnItemClickListener(object : DoctorApprovedListAdaptor.ClickListener {
+                        override fun onClick(doc: DoctorList, aView: View) {
+
+                        }
+                    })
+
+                    val adapterAutocomplete = AutocompleteDoctorsAdaptor(
+                        this,
+                        R.layout.textview_autocomplete,
+                        doctorsList.value!!.approvedDoctorList
+                    )
+                    autoCompleteTextView_doctors.setAdapter(adapterAutocomplete)
+
+                    updateDoctorSelect(docAdaptar)
+
+                }else{
+                    errorAlertDialog(result.networkError)
                 }
 
             }
         })
+    }
+
+
+    fun updateDoctorSelect(adaptor : DoctorApprovedListAdaptor){
+        viewModelDoctorAssign.docItemAddRespons.observe(this, Observer<Boolean> {
+            it?.let { result ->
+                adaptor.notifyDataSetChanged()
+                autoCompleteTextView_doctors.setText("")
+            }
+        })
 
     }
 
+
+
+    fun getApprovedLocations(){
+
+        viewModelDoctorAssign!!.getApprovedLocations().observe(this, Observer<Locations> {
+            it?.let { result ->
+                locationList.value = result
+
+                if(result.locationsStatus){
+
+                    var locAdaptar = LocationApprovedListAdaptor(locationList.value!!.locationsList,this)
+                    recyclerView_doctors_assign_locations.adapter =locAdaptar
+
+                    locAdaptar.setOnItemClickListener(object : LocationApprovedListAdaptor.ClickListener {
+                        override fun onClick(loc: LocationsList, aView: View) {
+
+                        }
+                    })
+                    val adapterAutocomplete = AutocompleteLocationsAdaptor(
+                        this,
+                        R.layout.textview_autocomplete,
+                        locationList.value!!.locationsList
+                    )
+                    autocompletetextView_locations.setAdapter(adapterAutocomplete)
+                    updateLocationSelect(locAdaptar)
+
+                }else{
+                    errorAlertDialog(result.locationsNetworkError)
+                }
+
+            }
+        })
+    }
+
+
+    fun updateLocationSelect(adaptor : LocationApprovedListAdaptor){
+        viewModelDoctorAssign.locationItemAddRespons.observe(this, Observer<Boolean> {
+            it?.let { result ->
+                adaptor.notifyDataSetChanged()
+                autocompletetextView_locations.setText("")
+            }
+        })
+
+    }
+
+    fun addMenuItemInNavMenuDrawer() {
+
+        var menu = nav_view_doctors_assign.menu
+        menu.add("Dashboard")
+        menu.add("Doctor's Visits")
+        menu.add("New Doctor's Visits")
+        menu.add("Doctors")
+        menu.add("New Doctor")
+        menu.add("Locations")
+        menu.add("New Location")
+
+        //  menu.add(0, MENU_EDIT, Menu.NONE, R.string.itemName).setIcon(R.drawable.itemDrawable);
+
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.title) {
@@ -166,6 +243,7 @@ class DoctorsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
+
             "Doctor's Visits" -> {
                 val intentDocVists = Intent(this, DoctorsVisitsActivity::class.java)
                 val bndlanimationDocVists =
@@ -207,8 +285,8 @@ class DoctorsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
-            "Assign Location to Doctors" -> {
-                val intentDocVists = Intent(this, DoctorLocationAssignActivity::class.java)
+            "Doctors" -> {
+                val intentDocVists = Intent(this, DoctorsActivity::class.java)
                 val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
@@ -221,33 +299,6 @@ class DoctorsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         return true
     }
 
-    fun addMenuItemInNavMenuDrawer() {
-
-        var menu = nav_view_doctorslist.menu
-        menu.add("Dashboard")
-        menu.add("Doctor's Visits")
-        menu.add("New Doctor's Visits")
-        menu.add("New Doctor")
-        menu.add("Assign Location to Doctors")
-        menu.add("Locations")
-        menu.add("New Location")
-
-
-        //  menu.add(0, MENU_EDIT, Menu.NONE, R.string.itemName).setIcon(R.drawable.itemDrawable);
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.toolbar_location_list, menu)
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        (menu.findItem(R.id.action_search).actionView as SearchView).apply {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        }
-
-        return true
-    }
-
-
     fun errorAlertDialog(networkError: NetworkError) {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle(networkError.errorTitle)
@@ -257,7 +308,4 @@ class DoctorsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             DialogInterface.OnClickListener { _, _ -> return@OnClickListener })
         alertDialogBuilder.show()
     }
-
-
-
 }

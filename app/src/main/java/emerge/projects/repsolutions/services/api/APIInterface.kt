@@ -59,4 +59,8 @@ interface APIInterface {
     fun getASpecializations(@Query("TokenID") tokenID: String): Observable<Specialization>
 
 
+    @POST("Doctor/SaveDoctor")
+    abstract fun saveDoctor(@Body doctorInfo: JsonObject): Observable<Doctor>
+
+
 }

@@ -10,6 +10,9 @@ data class Doctor(
     @SerializedName("error")
     var networkError: NetworkError = NetworkError(),
 
+    @SerializedName("doctorsDuplicate")
+    var isDoctorsDuplicate: Boolean = false,
+
     @SerializedName("approvedDoctorList")
     var approvedDoctorList: ArrayList<DoctorList> = ArrayList<DoctorList>()
 

@@ -145,11 +145,16 @@ class LocationRepo(application: Application) {
         test.districtStatus = true
 
         var testList = ArrayList<DistrictList>()
-        testList.add(DistrictList(1, "D1"))
-        testList.add(DistrictList(1, "D2"))
-        testList.add(DistrictList(1, "D4"))
-        testList.add(DistrictList(1, "D5"))
-        testList.add(DistrictList(1, "D9"))
+        testList.add(DistrictList(1, "Ampara"))
+        testList.add(DistrictList(2, "Anuradhapura"))
+        testList.add(DistrictList(3, "Badulla"))
+        testList.add(DistrictList(4, "Batticaloa"))
+        testList.add(DistrictList(5, "Colombo"))
+
+
+        testList.add(DistrictList(6, "Galle"))
+        testList.add(DistrictList(7, "Gampaha"))
+        testList.add(DistrictList(8, "Hambantota"))
 
 
         test.districtList = testList

@@ -1,7 +1,6 @@
 package emerge.projects.repsolutions.ui.location.locationnew.activity
 
 import android.Manifest
-import android.app.Activity
 import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.app.Dialog
@@ -42,6 +41,7 @@ import emerge.projects.repsolutions.R
 import emerge.projects.repsolutions.data.modeldata.*
 import emerge.projects.repsolutions.databinding.ActivityLocationNewBinding
 import emerge.projects.repsolutions.ui.doctors.doctors.activity.DoctorsActivity
+import emerge.projects.repsolutions.ui.doctors.doctorslocationassign.activity.DoctorLocationAssignActivity
 import emerge.projects.repsolutions.ui.doctors.doctorsnew.activity.DoctorNewActivity
 
 import emerge.projects.repsolutions.ui.location.locationlist.activity.LoctaionListActivity
@@ -50,8 +50,9 @@ import emerge.projects.repsolutions.ui.location.mvvm.LocationModelView
 import emerge.projects.repsolutions.ui.location.locationnew.adaptar.AutocompleteTownAdaptor
 import emerge.projects.repsolutions.ui.location.locationnew.adaptar.DuplicateLocationsAdaptor
 import emerge.projects.repsolutions.ui.location.locationnew.adaptar.SpinnerLocationTypeAdaptor
-import emerge.projects.repsolutions.ui.doctors.doctorsvisitslist.activity.DoctorsVisitsActivity
-import emerge.projects.repsolutions.ui.doctors.doctorvisitnew.activity.DoctorsNewVisitsActivity
+import emerge.projects.repsolutions.ui.visits.doctorsvisitslist.activity.DoctorsVisitsActivity
+import emerge.projects.repsolutions.ui.visits.doctorvisitnew.activity.DoctorsNewVisitsActivity
+import emerge.projects.repsolutions.ui.home.activity.HomeActivity
 import kotlinx.android.synthetic.main.activity_location_new.*
 import kotlinx.android.synthetic.main.dialog_location_duplicate.*
 
@@ -295,7 +296,6 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     fun dialogDuplicateLocationSaveYesClick(view: View) {
         saveLocation(true)
-
     }
 
     fun dialogDuplicateLocationSaveNoClick(view: View) {
@@ -337,6 +337,13 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.title) {
+            "Dashboard" -> {
+                val intentDocVists = Intent(this, HomeActivity::class.java)
+                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
+
             "Doctor's Visits" -> {
                 val intentDocVists = Intent(this, DoctorsVisitsActivity::class.java)
                 val bndlanimationDocVists =
@@ -378,7 +385,12 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
-
+            "Assign Location to Doctors" -> {
+                val intentDocVists = Intent(this, DoctorLocationAssignActivity::class.java)
+                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
 
         }
 
@@ -389,11 +401,13 @@ class LocationNewActivity : AppCompatActivity(), NavigationView.OnNavigationItem
     fun addMenuItemInNavMenuDrawer() {
 
         var menu = nav_view_newlocationlist.menu
+        menu.add("Dashboard")
         menu.add("Doctor's Visits")
         menu.add("New Doctor's Visits")
-        menu.add("Locations")
         menu.add("Doctors")
         menu.add("New Doctor")
+        menu.add("Assign Location to Doctors")
+        menu.add("Locations")
 
         //  menu.add(0, MENU_EDIT, Menu.NONE, R.string.itemName).setIcon(R.drawable.itemDrawable);
 

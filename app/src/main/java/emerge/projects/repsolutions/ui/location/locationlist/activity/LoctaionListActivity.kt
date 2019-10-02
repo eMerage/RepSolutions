@@ -25,12 +25,14 @@ import emerge.projects.repsolutions.data.modeldata.Locations
 import emerge.projects.repsolutions.data.modeldata.LocationsList
 import emerge.projects.repsolutions.databinding.ActivityLoctaionListBinding
 import emerge.projects.repsolutions.ui.doctors.doctors.activity.DoctorsActivity
+import emerge.projects.repsolutions.ui.doctors.doctorslocationassign.activity.DoctorLocationAssignActivity
 import emerge.projects.repsolutions.ui.doctors.doctorsnew.activity.DoctorNewActivity
 import emerge.projects.repsolutions.ui.location.locationlist.adaptar.LocationListAdaptor
 import emerge.projects.repsolutions.ui.location.mvvm.LocationModelView
 import emerge.projects.repsolutions.ui.location.locationnew.activity.LocationNewActivity
-import emerge.projects.repsolutions.ui.doctors.doctorsvisitslist.activity.DoctorsVisitsActivity
-import emerge.projects.repsolutions.ui.doctors.doctorvisitnew.activity.DoctorsNewVisitsActivity
+import emerge.projects.repsolutions.ui.visits.doctorsvisitslist.activity.DoctorsVisitsActivity
+import emerge.projects.repsolutions.ui.visits.doctorvisitnew.activity.DoctorsNewVisitsActivity
+import emerge.projects.repsolutions.ui.home.activity.HomeActivity
 import kotlinx.android.synthetic.main.activity_loctaion_list.*
 
 class LoctaionListActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
@@ -159,6 +161,13 @@ class LoctaionListActivity : AppCompatActivity(),NavigationView.OnNavigationItem
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.title) {
+            "Dashboard" -> {
+                val intentDocVists = Intent(this, HomeActivity::class.java)
+                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
+
             "Doctor's Visits" -> {
                 val intentDocVists = Intent(this, DoctorsVisitsActivity::class.java)
                 val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
@@ -190,7 +199,12 @@ class LoctaionListActivity : AppCompatActivity(),NavigationView.OnNavigationItem
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
-
+            "Assign Location to Doctors" -> {
+                val intentDocVists = Intent(this, DoctorLocationAssignActivity::class.java)
+                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
 
 
         }
@@ -202,11 +216,13 @@ class LoctaionListActivity : AppCompatActivity(),NavigationView.OnNavigationItem
     fun addMenuItemInNavMenuDrawer() {
 
         var menu = nav_view_locationlist.menu
+        menu.add("Dashboard")
         menu.add("Doctor's Visits")
         menu.add("New Doctor's Visits")
-        menu.add("New Location")
         menu.add("Doctors")
         menu.add("New Doctor")
+        menu.add("Assign Location to Doctors")
+        menu.add("New Location")
         //  menu.add(0, MENU_EDIT, Menu.NONE, R.string.itemName).setIcon(R.drawable.itemDrawable);
 
     }

@@ -10,12 +10,13 @@ import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import emerge.projects.repsolutions.R
 import emerge.projects.repsolutions.ui.doctors.doctors.activity.DoctorsActivity
+import emerge.projects.repsolutions.ui.doctors.doctorslocationassign.activity.DoctorLocationAssignActivity
 import emerge.projects.repsolutions.ui.doctors.doctorsnew.activity.DoctorNewActivity
 import emerge.projects.repsolutions.ui.location.locationlist.activity.LoctaionListActivity
 import emerge.projects.repsolutions.ui.location.locationnew.activity.LocationNewActivity
 import kotlinx.android.synthetic.main.activity_home.*
-import emerge.projects.repsolutions.ui.doctors.doctorsvisitslist.activity.DoctorsVisitsActivity
-import emerge.projects.repsolutions.ui.doctors.doctorvisitnew.activity.DoctorsNewVisitsActivity
+import emerge.projects.repsolutions.ui.visits.doctorsvisitslist.activity.DoctorsVisitsActivity
+import emerge.projects.repsolutions.ui.visits.doctorvisitnew.activity.DoctorsNewVisitsActivity
 
 
 class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelectedListener {
@@ -90,6 +91,12 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
+            "Assign Location to Doctors" -> {
+                val intentDocVists = Intent(this, DoctorLocationAssignActivity::class.java)
+                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
 
 
 
@@ -104,10 +111,11 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
         var menu = nav_view.menu
         menu.add("Doctor's Visits")
         menu.add("New Doctor's Visits")
-        menu.add("Locations")
-        menu.add("New Location")
         menu.add("Doctors")
         menu.add("New Doctor")
+        menu.add("Assign Location to Doctors")
+        menu.add("Locations")
+        menu.add("New Location")
 
       //  menu.add(0, MENU_EDIT, Menu.NONE, R.string.itemName).setIcon(R.drawable.itemDrawable);
 

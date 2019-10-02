@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="doctorsassign"
+            type="emerge.projects.repsolutions.ui.doctors.mvvm.DoctorModelView" />
+
+        <import type="android.view.View"></import>
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout_doctors_assign"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_doctors_assign"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context=".ui.doctors.doctorslocationassign.activity.DoctorLocationAssignActivity">
+
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp">
+
+                                <TextView
+                                    android:id="@+id/textview1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="15dp"
+                                    android:fontFamily="@font/roboto_light"
+                                    android:visibility="@{doctorsassign.isTextview1Visibale ? View.VISIBLE : View.GONE}"
+                                    android:text="Select Doctor to Assign"
+                                    android:layout_toStartOf="@+id/imageview_docassign_doc_search"
+                                    android:layout_toLeftOf="@+id/imageview_docassign_doc_search"
+                                    android:textColor="@color/colorblack"
+                                    android:textSize="18sp" />
+
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/autoCompleteTextView_doctors"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="20dp"
+                                    android:onItemClickListener="@{doctorsassign.onDoctorsItemSelected}"
+                                    android:visibility="@{doctorsassign.isTextViewDoctorsVisibale ? View.VISIBLE : View.GONE}"
+                                    android:layout_toStartOf="@+id/imageview_docassign_doc_search"
+                                    android:layout_toLeftOf="@+id/imageview_docassign_doc_search"
+                                    android:fontFamily="@font/roboto_thin"
+                                    android:hint="SEARCH DOCTOR"
+                                    android:textSize="14sp"
+                                    />
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imageview_docassign_doc_search"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:paddingLeft="10dp"
+                                    android:onClick="@{()->doctorsassign.onClickDoctorSerach()}"
+                                    android:paddingTop="10dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="10dp"
+                                    android:src="@drawable/ic_search_black" />
+
+                            </RelativeLayout>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView_doctors_assign"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:listitem="@layout/listview_doctors" />
+
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp">
+
+                                <TextView
+                                    android:id="@+id/textview2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="15dp"
+                                    android:fontFamily="@font/roboto_light"
+                                    android:visibility="@{doctorsassign.isTextview2Visibale ? View.VISIBLE : View.GONE}"
+                                    android:layout_toStartOf="@+id/imageview_docassign_location_search"
+                                    android:layout_toLeftOf="@+id/imageview_docassign_location_search"
+                                    android:text="Select Location to Assign "
+                                    android:textColor="@color/colorblack"
+                                    android:textSize="18sp" />
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/autocompletetextView_locations"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="20dp"
+                                    android:onItemClickListener="@{doctorsassign.onLocationsItemSelected}"
+                                    android:visibility="@{doctorsassign.isTextViewLocationsVisibale ? View.VISIBLE : View.GONE}"
+                                    android:layout_toStartOf="@+id/imageview_docassign_location_search"
+                                    android:layout_toLeftOf="@+id/imageview_docassign_location_search"
+                                    android:fontFamily="@font/roboto_thin"
+                                    android:hint="SEARCH LOCATIONS"
+                                    android:textSize="14sp"
+                                    />
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imageview_docassign_location_search"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:paddingLeft="10dp"
+                                    android:onClick="@{()->doctorsassign.onClickLocationSerach()}"
+                                    android:paddingTop="10dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingBottom="10dp"
+                                    android:src="@drawable/ic_search_black" />
+
+                            </RelativeLayout>
+
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView_doctors_assign_locations"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:listitem="@layout/listview_locations"/>
+
+                            <Button
+                                android:id="@+id/button_login"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_marginTop="100dp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginBottom="20dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                android:onClick="assignDoctorsNoClick"
+                                android:background="@drawable/button_state_list_animator"
+                                android:fontFamily="@font/roboto_light"
+                                android:text="Assign"
+                                android:textColor="@color/babypowder"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+
+                        </LinearLayout>
+                    </ScrollView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:visibility="@{doctorsassign.isDoctorsAssignLoading ? View.VISIBLE : View.GONE}" />
+
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view_doctors_assign"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

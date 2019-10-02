@@ -24,6 +24,10 @@ class SpecializationAdaptor (val items: ArrayList<SpecializationList>, val conte
 
     lateinit var mClickListener: ClickListener
 
+    init {
+
+    }
+
     override fun getItemCount(): Int {
         return items.size
     }
@@ -59,9 +63,11 @@ class SpecializationAdaptor (val items: ArrayList<SpecializationList>, val conte
             view.setOnClickListener(this)
         }
         override fun onClick(p0: View?) {
+            items[adapterPosition].isSelectSpec = !items[adapterPosition].isSelectSpec
             mClickListener.onClick( items[adapterPosition], p0!!)
 
-            items[adapterPosition].isSelectSpec=true
+
+
             notifyDataSetChanged()
 
         }

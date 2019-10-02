@@ -1,4 +1,4 @@
-package emerge.projects.repsolutions.ui.doctors.doctorvisitnew.adaptor;
+package emerge.projects.repsolutions.ui.visits.doctorvisitnew.adaptor;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,22 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import emerge.projects.repsolutions.R;
-import emerge.projects.repsolutions.data.modeldata.DoctorList;
+import emerge.projects.repsolutions.data.modeldata.ProductList;
 
-public class AutoCompleteDoctorsAdapter extends ArrayAdapter<DoctorList> {
+public class AutoCompleteProductsAdapter extends ArrayAdapter<ProductList> {
 
     Context context;
     int resource, textViewResourceId;
-    List<DoctorList> items, tempItems, suggestions;
+    List<ProductList> items, tempItems, suggestions;
 
-    public AutoCompleteDoctorsAdapter(Context context, int resource, int textViewResourceId, List<DoctorList> items) {
+    public AutoCompleteProductsAdapter(Context context, int resource, int textViewResourceId, List<ProductList> items) {
         super(context, resource, textViewResourceId, items);
         this.context = context;
         this.resource = resource;
         this.textViewResourceId = textViewResourceId;
         this.items = items;
-        tempItems = new ArrayList<DoctorList>(items); // this makes the difference.
-        suggestions = new ArrayList<DoctorList>();
+        tempItems = new ArrayList<ProductList>(items); // this makes the difference.
+        suggestions = new ArrayList<ProductList>();
     }
 
     @Override
@@ -37,11 +37,11 @@ public class AutoCompleteDoctorsAdapter extends ArrayAdapter<DoctorList> {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.list_autocomplete_products, parent, false);
         }
-        DoctorList people = items.get(position);
+        ProductList people = items.get(position);
         if (people != null) {
             TextView lblName = (TextView) view.findViewById(R.id.lbl_name);
             if (lblName != null)
-                lblName.setText(people.getDoctorName());
+                lblName.setText(people.getProductName());
         }
         return view;
     }
@@ -57,7 +57,7 @@ public class AutoCompleteDoctorsAdapter extends ArrayAdapter<DoctorList> {
     Filter nameFilter = new Filter() {
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            String str = ((DoctorList) resultValue).getDoctorName();
+            String str = ((ProductList) resultValue).getProductName();
             return str;
         }
 
@@ -65,8 +65,8 @@ public class AutoCompleteDoctorsAdapter extends ArrayAdapter<DoctorList> {
         protected FilterResults performFiltering(CharSequence constraint) {
             if (constraint != null) {
                 suggestions.clear();
-                for (DoctorList people : tempItems) {
-                    if (people.getDoctorName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                for (ProductList people : tempItems) {
+                    if (people.getProductName().toLowerCase().contains(constraint.toString().toLowerCase())) {
                         suggestions.add(people);
                     }
                 }
@@ -81,10 +81,10 @@ public class AutoCompleteDoctorsAdapter extends ArrayAdapter<DoctorList> {
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            List<DoctorList> filterList = (ArrayList<DoctorList>) results.values;
+            List<ProductList> filterList = (ArrayList<ProductList>) results.values;
             if (results != null && results.count > 0) {
                 clear();
-                for (DoctorList people : filterList) {
+                for (ProductList people : filterList) {
                     add(people);
                     notifyDataSetChanged();
                 }
