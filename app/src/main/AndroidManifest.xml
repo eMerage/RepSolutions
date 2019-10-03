@@ -27,34 +27,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.login.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".ui.home.activity.HomeActivity"
             android:label="@string/title_activity_home"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
         <activity
-            android:name="emerge.projects.repsolutions.ui.visits.doctorsvisitslist.activity.DoctorsVisitsActivity"
+            android:name=".ui.visits.doctorsvisitslist.activity.DoctorsVisitsActivity"
             android:label="@string/title_activity_docvists"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
-            android:name="emerge.projects.repsolutions.ui.visits.doctorvisitnew.activity.DoctorsNewVisitsActivity"
+            android:name=".ui.visits.doctorvisitnew.activity.DoctorsNewVisitsActivity"
             android:label="@string/title_activity_newdocvists"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-
-
         <activity
             android:name=".ui.doctors.doctors.activity.DoctorsActivity"
             android:label="@string/title_activity_doctors"
@@ -73,26 +66,27 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/location_searchable" />
         </activity>
-
-
         <activity
             android:name=".ui.doctors.doctorsnew.activity.DoctorNewActivity"
             android:label="@string/title_activity_newdoctors"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
-
-
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".ui.doctors.doctorslocationassign.activity.DoctorLocationAssignActivity"
             android:label="@string/title_activity_assignlocationdoctors"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"></activity>
 
+        <activity android:name=".ui.doctors.doctorupdate.activity.DoctorsUpdateActivity"
+            android:label="@string/title_activity_updatedoctors"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
         </activity>
+
+
 
 
         <activity
@@ -113,7 +107,6 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/location_searchable" />
         </activity>
-
         <activity
             android:name=".ui.location.locationnew.activity.LocationNewActivity"
             android:label="@string/title_activity_newlocation"

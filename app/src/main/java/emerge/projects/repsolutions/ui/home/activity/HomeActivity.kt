@@ -12,6 +12,7 @@ import emerge.projects.repsolutions.R
 import emerge.projects.repsolutions.ui.doctors.doctors.activity.DoctorsActivity
 import emerge.projects.repsolutions.ui.doctors.doctorslocationassign.activity.DoctorLocationAssignActivity
 import emerge.projects.repsolutions.ui.doctors.doctorsnew.activity.DoctorNewActivity
+import emerge.projects.repsolutions.ui.doctors.doctorupdate.activity.DoctorsUpdateActivity
 import emerge.projects.repsolutions.ui.location.locationlist.activity.LoctaionListActivity
 import emerge.projects.repsolutions.ui.location.locationnew.activity.LocationNewActivity
 import kotlinx.android.synthetic.main.activity_home.*
@@ -97,6 +98,12 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
+            "Update Doctors" -> {
+                val intentDocVists = Intent(this, DoctorsUpdateActivity::class.java)
+                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
 
 
 
@@ -114,6 +121,7 @@ class HomeActivity : AppCompatActivity() ,NavigationView.OnNavigationItemSelecte
         menu.add("Doctors")
         menu.add("New Doctor")
         menu.add("Assign Location to Doctors")
+        menu.add("Update Doctors")
         menu.add("Locations")
         menu.add("New Location")
 

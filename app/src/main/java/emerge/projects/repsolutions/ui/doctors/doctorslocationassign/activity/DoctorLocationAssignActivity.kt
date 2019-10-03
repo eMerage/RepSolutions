@@ -25,6 +25,7 @@ import emerge.projects.repsolutions.ui.doctors.doctors.activity.DoctorsActivity
 import emerge.projects.repsolutions.ui.doctors.doctorslocationassign.adaptar.DoctorApprovedListAdaptor
 import emerge.projects.repsolutions.ui.doctors.doctorslocationassign.adaptar.LocationApprovedListAdaptor
 import emerge.projects.repsolutions.ui.doctors.doctorsnew.activity.DoctorNewActivity
+import emerge.projects.repsolutions.ui.doctors.doctorupdate.activity.DoctorsUpdateActivity
 import emerge.projects.repsolutions.ui.visits.doctorsvisitslist.activity.DoctorsVisitsActivity
 import emerge.projects.repsolutions.ui.visits.doctorvisitnew.activity.DoctorsNewVisitsActivity
 import emerge.projects.repsolutions.ui.visits.doctorvisitnew.adaptor.AutocompleteDoctorsAdaptor
@@ -228,6 +229,7 @@ class DoctorLocationAssignActivity : AppCompatActivity() , NavigationView.OnNavi
         menu.add("New Doctor's Visits")
         menu.add("Doctors")
         menu.add("New Doctor")
+        menu.add("Update Doctors")
         menu.add("Locations")
         menu.add("New Location")
 
@@ -287,6 +289,12 @@ class DoctorLocationAssignActivity : AppCompatActivity() , NavigationView.OnNavi
             }
             "Doctors" -> {
                 val intentDocVists = Intent(this, DoctorsActivity::class.java)
+                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
+            "Update Doctors" -> {
+                val intentDocVists = Intent(this, DoctorsUpdateActivity::class.java)
                 val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()

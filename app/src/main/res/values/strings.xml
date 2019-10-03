@@ -25,8 +25,7 @@
     <string name="title_activity_doctors">Your Doctors</string>
     <string name="title_activity_newdoctors">New Doctor</string>
     <string name="title_activity_assignlocationdoctors">Assign Location To Doctors</string>
-
-
+    <string name="title_activity_updatedoctors">Update Doctors</string>
 
 
 

@@ -27,6 +27,7 @@ import emerge.projects.repsolutions.ui.doctors.doctorslocationassign.activity.Do
 import emerge.projects.repsolutions.ui.doctors.doctorsnew.adaptar.AutocompleteDocSpecAdaptor
 import emerge.projects.repsolutions.ui.doctors.doctorsnew.adaptar.DuplicateDoctorsAdaptor
 import emerge.projects.repsolutions.ui.doctors.doctorsnew.adaptar.SpecializationAdaptor
+import emerge.projects.repsolutions.ui.doctors.doctorupdate.activity.DoctorsUpdateActivity
 import emerge.projects.repsolutions.ui.visits.doctorsvisitslist.activity.DoctorsVisitsActivity
 import emerge.projects.repsolutions.ui.visits.doctorvisitnew.activity.DoctorsNewVisitsActivity
 import emerge.projects.repsolutions.ui.doctors.mvvm.DoctorModelView
@@ -36,8 +37,7 @@ import emerge.projects.repsolutions.ui.location.locationnew.activity.LocationNew
 import kotlinx.android.synthetic.main.activity_doctor_new.*
 import kotlinx.android.synthetic.main.dialog_doctor_duplicate.*
 
-class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
-
+class DoctorNewActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
     lateinit var bindingNewDoctor: ActivityDoctorNewBinding
@@ -83,7 +83,6 @@ class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         getDoctorsSpecialization()
 
 
-
     }
 
 
@@ -91,6 +90,7 @@ class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         super.onStart()
 
     }
+
     override fun isDestroyed(): Boolean {
         return super.isDestroyed()
 
@@ -114,47 +114,48 @@ class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
 
 
     fun doctorSaveOnClick(view: View) {
-        saveDoctor(specList.value!!.specializationList.filter { it.isSelectSpec} as ArrayList<SpecializationList>,false)
+        saveDoctor(specList.value!!.specializationList.filter { it.isSelectSpec } as ArrayList<SpecializationList>,
+            false)
     }
 
 
-    fun saveDoctor(specList : ArrayList<SpecializationList>,doctorDuplicateStatus : Boolean){
-        viewModelNewDoctor.saveDoctors(specList,doctorDuplicateStatus).observe(this, Observer<Doctor> {
-            it?.let { result ->
-                if (result.doctorsStatus) {
+    fun saveDoctor(specList: ArrayList<SpecializationList>, doctorDuplicateStatus: Boolean) {
+        viewModelNewDoctor.saveDoctors(specList, doctorDuplicateStatus)
+            .observe(this, Observer<Doctor> {
+                it?.let { result ->
+                    if (result.doctorsStatus) {
 
-                } else {
-                    if(result.isDoctorsDuplicate){
-                        doctorsDuplicateListDialog(result.approvedDoctorList)
-                    }else{
-                        errorAlertDialog(result.networkError)
+                    } else {
+                        if (result.isDoctorsDuplicate) {
+                            doctorsDuplicateListDialog(result.approvedDoctorList)
+                        } else {
+                            errorAlertDialog(result.networkError)
+                        }
+
                     }
-
                 }
-            }
-        })
+            })
 
     }
 
 
-    fun doctorsDuplicateListDialog(list : ArrayList<DoctorList>){
+    fun doctorsDuplicateListDialog(list: ArrayList<DoctorList>) {
 
         dialogDuplicate = Dialog(this)
         dialogDuplicate.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialogDuplicate.window!!.setBackgroundDrawableResource(android.R.color.transparent)
         dialogDuplicate.setContentView(R.layout.dialog_doctor_duplicate)
         dialogDuplicate.setCancelable(true)
-        dialogDuplicate.recyclerView_duplicate_doctors.adapter = DuplicateDoctorsAdaptor(list,this)
+        dialogDuplicate.recyclerView_duplicate_doctors.adapter = DuplicateDoctorsAdaptor(list, this)
         dialogDuplicate.show()
 
 
     }
 
 
-
-
     fun dialogDuplicateDoctorsSaveYesClick(view: View) {
-        saveDoctor(specList.value!!.specializationList.filter { it.isSelectSpec} as ArrayList<SpecializationList>,true)
+        saveDoctor(specList.value!!.specializationList.filter { it.isSelectSpec } as ArrayList<SpecializationList>,
+            true)
     }
 
     fun dialogDuplicateDoctorsSaveNoClick(view: View) {
@@ -162,15 +163,16 @@ class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
     }
 
 
-
-    fun getDoctorsSpecialization(){
+    fun getDoctorsSpecialization() {
         viewModelNewDoctor!!.getDoctorsSpecialization().observe(this, Observer<Specialization> {
             it?.let { result ->
-                if(result.specStatus){
+                if (result.specStatus) {
                     specList.value = result
-                    var specAdaptor= SpecializationAdaptor(specList.value!!.specializationList,this)
+                    var specAdaptor =
+                        SpecializationAdaptor(specList.value!!.specializationList, this)
                     recyclerView_doc_spec.adapter = specAdaptor
-                    specAdaptor.setOnItemClickListener(object : SpecializationAdaptor.ClickListener {
+                    specAdaptor.setOnItemClickListener(object :
+                        SpecializationAdaptor.ClickListener {
                         override fun onClick(spec: SpecializationList, aView: View) {
                             specList.value!!.specializationList.sortByDescending { it.isSelectSpec }
                         }
@@ -183,7 +185,7 @@ class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
                     autoCompleteTextView_doc_spec.setAdapter(adapter)
                     updateSpecSelect(specAdaptor)
 
-                }else{
+                } else {
                     errorAlertDialog(result.specNetworkError)
                 }
 
@@ -192,7 +194,7 @@ class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
 
     }
 
-    fun updateSpecSelect(adaptor : SpecializationAdaptor){
+    fun updateSpecSelect(adaptor: SpecializationAdaptor) {
         viewModelNewDoctor.docSpecItemAddRespons.observe(this, Observer<Boolean> {
             it?.let { result ->
                 adaptor.notifyDataSetChanged()
@@ -203,12 +205,13 @@ class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
     }
 
 
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.title) {
             "Dashboard" -> {
                 val intentDocVists = Intent(this, HomeActivity::class.java)
-                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                val bndlanimationDocVists =
+                    ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out)
+                        .toBundle()
                 startActivity(intentDocVists, bndlanimationDocVists)
                 this.finish()
             }
@@ -255,11 +258,20 @@ class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
                 this.finish()
             }
             "Assign Location to Doctors" -> {
-            val intentDocVists = Intent(this, DoctorLocationAssignActivity::class.java)
-            val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
-            startActivity(intentDocVists, bndlanimationDocVists)
-            this.finish()
-        }
+                val intentDocVists = Intent(this, DoctorLocationAssignActivity::class.java)
+                val bndlanimationDocVists =
+                    ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out)
+                        .toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
+
+            "Update Doctors" -> {
+                val intentDocVists = Intent(this, DoctorsUpdateActivity::class.java)
+                val bndlanimationDocVists = ActivityOptions.makeCustomAnimation(this, R.anim.fade_in, R.anim.fade_out).toBundle()
+                startActivity(intentDocVists, bndlanimationDocVists)
+                this.finish()
+            }
 
 
         }
@@ -276,6 +288,7 @@ class DoctorNewActivity : AppCompatActivity(),NavigationView.OnNavigationItemSel
         menu.add("New Doctor's Visits")
         menu.add("Doctors")
         menu.add("Assign Location to Doctors")
+        menu.add("Update Doctors")
         menu.add("Locations")
         menu.add("New Locations")
 

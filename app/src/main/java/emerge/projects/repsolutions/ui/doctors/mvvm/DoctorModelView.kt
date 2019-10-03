@@ -14,6 +14,8 @@ class DoctorModelView(application: Application) : AndroidViewModel(application) 
     var docsRepository: DoctorRepo = DoctorRepo(application)
 
 
+
+
     val isVisitsDocListLoading = ObservableField<Boolean>()
     val isVisitsNewDocListLoading = ObservableField<Boolean>()
     val isDoctorsListLoading = ObservableField<Boolean>()
@@ -57,6 +59,8 @@ class DoctorModelView(application: Application) : AndroidViewModel(application) 
     var locationItemAddRespons = MutableLiveData<Boolean>()
     var selectedLocation = LocationsList()
 
+
+    val isUpdateDoctorsLoading = ObservableField<Boolean>()
 
 
     init {
